@@ -1,0 +1,14 @@
+# Turn off visual bell and startup message
+vbell off
+startup_message off
+
+# Descriptive caption with hostname and current time
+caption always "%{= kw}%-w%{= BW}%n %t%{-}%+w %-= %H %c"
+
+# Bind a key for an htop screen
+bind H screen -t htop htop
+
+bindkey "^l" clear
+
+screen -t htop htop # Start htop in first screen
+screen

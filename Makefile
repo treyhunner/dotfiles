@@ -14,7 +14,11 @@ ifndef CPCMD
   CPCMD=$(CMD) $(ARGS)
 endif
 
-all: zsh
+all: screen zsh
+
+screen:
+	@echo Copying screen config
+	$(CPCMD) $(PWD)/screenrc $(DEST)/.screenrc
 
 zsh:
 	@echo Copying zsh config
