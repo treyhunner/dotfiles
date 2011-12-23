@@ -14,7 +14,7 @@ ifndef CPCMD
   CPCMD=$(CMD) $(ARGS)
 endif
 
-all: screen zsh
+all: screen zsh vim
 
 screen:
 	@echo Copying screen config
@@ -23,3 +23,7 @@ screen:
 zsh:
 	@echo Copying zsh config
 	$(CPCMD) $(PWD)/zshrc $(DEST)/.zshrc
+
+vim:
+	@echo Copying vim config
+	$(CPCMD) $(PWD)/vimrc $(DEST)/.vimrc
