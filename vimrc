@@ -1,6 +1,7 @@
 syntax on
 
-call pathogen#infect()
+" Manage runtime path with pathogen (if available)
+silent! call pathogen#infect()
 
 " Use one of my favorite color schemes if available
 silent! colorscheme desert
