@@ -36,6 +36,6 @@ set backupdir=~/.vimbkp//
 
 " Enable filetype-aware indentation and syntax highlighting rules
 if has("autocmd")
-    filetype plugin indent on
+  filetype plugin indent on
 endif
 
