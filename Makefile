@@ -17,13 +17,13 @@ endif
 all: screen zsh vim
 
 screen:
-	@echo Copying screen config
-	$(CPCMD) $(PWD)/screenrc $(DEST)/.screenrc
+  @echo Copying screen config
+  $(CPCMD) $(PWD)/screenrc $(DEST)/.screenrc
 
 zsh:
-	@echo Copying zsh config
-	$(CPCMD) $(PWD)/zshrc $(DEST)/.zshrc
+  @echo Copying zsh config
+  $(CPCMD) $(PWD)/zshrc $(DEST)/.zshrc
 
 vim:
-	@echo Copying vim config
-	$(CPCMD) $(PWD)/vimrc $(DEST)/.vimrc
+  @echo Copying vim config
+  $(CPCMD) $(PWD)/vimrc $(DEST)/.vimrc
