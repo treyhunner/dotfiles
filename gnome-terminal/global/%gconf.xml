@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="default_profile" mtime="1277416326" type="string">
+		<stringvalue>Default</stringvalue>
+	</entry>
+	<entry name="profile_list" mtime="1277416326" type="list" ltype="string">
+		<li type="string">
+			<stringvalue>Default</stringvalue>
+		</li>
+	</entry>
+	<entry name="use_menu_accelerators" mtime="1260157624" type="bool" value="false"/>
+</gconf>
