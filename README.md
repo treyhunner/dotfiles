@@ -14,4 +14,12 @@ To install all configuration files use:
 
     make
 
+The default command used to install configuration files is `cp -r -n`.  This
+command copies files recursively and does not overwtrite existing files.  To
+change the command used to install configuration files pass `CMD` and/or `ARGS`
+parameters to `make`.  For example, this will install install the screen
+configuration file and overwrite existing files:
+
+    make ARGS=-r screen
+
 [GNU make]: http://www.gnu.org/software/make/
