@@ -52,5 +52,5 @@ if [ -s "$HOME/.zsh/git-prompt/zshrc.sh" ] ; then
     # Set prompt
     PROMPT='%m:$(git_status)%# '
 else
-    PROMPT='%m:$(git_status)%# '
+    PROMPT='%m:%3~%# '
 fi
