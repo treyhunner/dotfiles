@@ -14,7 +14,7 @@ ifndef CPCMD
 	CPCMD=$(CMD) $(ARGS)
 endif
 
-all: screen zsh vim terminal git 
+all: screen zsh vim terminal git xmonad
 
 screen:
 	@echo Copying screen config
@@ -35,3 +35,7 @@ terminal:
 git:
 	@echo Copying gitignore config
 	$(CPCMD) $(PWD)/gitignore $(DEST)/.gitignore
+
+xmonad:
+	@echo Copying xmonad config
+	$(CPCMD) $(PWD)/xmonad $(DEST)/.xmonad
