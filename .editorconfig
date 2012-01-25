@@ -12,6 +12,10 @@ indent_size = 4
 indent_style = space
 indent_size = 2
 
+[zshrc]
+indent_style = space
+indent_size = 4
+
 [gnome-terminal/**.xml]
 indent_style = tab
 indent_size = 4
