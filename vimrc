@@ -21,7 +21,7 @@ set mouse=a                     " Enable mouse support in terminal
 set wildmode=longest,list       " Smart tab completion from command line
 set cpoptions=aABceFs           " Set some reasonable vi-compatible behavior
 set backspace=indent,eol,start  " Allow backspace over indentation and newlines
-set guioptions=agimL            " Set gVim guioptions (no toolbar or scrollbar)
+set guioptions=agim             " Set gVim guioptions (no toolbar or scrollbar)
 
 " Use 4 spaces instead of a tab
 set expandtab
