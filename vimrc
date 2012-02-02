@@ -22,6 +22,7 @@ set wildmode=longest,list       " Smart tab completion from command line
 set cpoptions=aABceFs           " Set some reasonable vi-compatible behavior
 set backspace=indent,eol,start  " Allow backspace over indentation and newlines
 set guioptions=agi              " Set gVim guioptions (no toolbar or scrollbar)
+set number                      " Turn on line numbers
 
 " Use 4 spaces instead of a tab
 set expandtab
