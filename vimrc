@@ -4,13 +4,12 @@ syntax on
 silent! call pathogen#infect()
 
 " Use one of my favorite color schemes if available
-silent! colorscheme desert
-if has('gui_running')
-  silent! colorscheme jellybeans
-  silent! colorscheme xoria256
-  silent! colorscheme molokai
-  silent! colorscheme solarized
-endif
+try
+  set background=dark
+  colorscheme solarized
+catch
+  silent! colorscheme desert
+endtry
 
 set autochdir                   " Change directory to the current working file
 set autoindent                  " Enable auto indentation
