@@ -1,15 +1,5 @@
-syntax on
-
 " Manage runtime path with pathogen (if available)
 silent! call pathogen#infect()
-
-" Use one of my favorite color schemes if available
-try
-  set background=dark
-  colorscheme solarized
-catch
-  silent! colorscheme desert
-endtry
 
 set autochdir                   " Change directory to the current working file
 set autoindent                  " Enable auto indentation
@@ -22,6 +12,15 @@ set cpoptions=aABceFs           " Set some reasonable vi-compatible behavior
 set backspace=indent,eol,start  " Allow backspace over indentation and newlines
 set guioptions=agi              " Set gVim guioptions (no toolbar or scrollbar)
 set number                      " Turn on line numbers
+
+" Use one of my favorite color schemes if available
+syntax on
+try
+  set background=dark
+  colorscheme solarized
+catch
+  silent! colorscheme desert
+endtry
 
 " Use 4 spaces instead of a tab
 set expandtab
