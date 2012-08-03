@@ -61,3 +61,5 @@ if which virtualenvwrapper.sh &> /dev/null ; then
     source $(which virtualenvwrapper.sh)
     export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 fi
+
+export EDITOR=vim  # Use vim as default text editor
