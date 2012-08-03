@@ -54,3 +54,10 @@ if [ -s "$HOME/.zsh/git-prompt/zshrc.sh" ] ; then
 else
     PROMPT='%m:%3~%# '
 fi
+
+# Set virtualenvwrapper settings
+if which virtualenvwrapper.sh &> /dev/null ; then
+    export WORKON_HOME=$HOME/.virtualenvs
+    source $(which virtualenvwrapper.sh)
+    export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+fi
