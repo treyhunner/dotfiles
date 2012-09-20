@@ -14,7 +14,11 @@ ifndef CPCMD
 	CPCMD=$(CMD) $(ARGS)
 endif
 
-all: screen zsh vim terminal git xmonad
+all: tmux screen zsh vim terminal git xmonad
+
+tmux:
+	@echo Copying tmux config
+	$(CPCMD) $(PWD)/tmux.conf $(DEST)/.tmux.conf
 
 screen:
 	@echo Copying screen config
