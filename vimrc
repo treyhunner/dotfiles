@@ -47,3 +47,23 @@ if has("autocmd")
   autocmd GUIEnter * set visualbell t_vb=
 endif
 
+" Highlight tabs and trailing whitespace automatically
+autocmd BufNewFile,BufReadPost,FilterReadPost,FileReadPost,Syntax * SpaceHi
+
+" Syntastic options
+let g:syntastic_check_on_open=1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_python_checker_args = "--max-line-length=80"
+let g:syntastic_mode_map = { 'mode': 'passive',
+                           \ 'active_filetypes': ['python', 'javascript'],
+                           \ 'passive_filetypes': ['html'] }
+
+" Python Mode options
+let g:pymode_lint = 0
+let g:pymode_folding = 0
+let g:pymode_utils_whitespaces = 0
+let g:pymode_rope_goto_def_newwin = "new"
+
+" Jedi options
+let g:jedi#show_function_definition = "0"
