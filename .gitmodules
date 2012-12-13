@@ -1,0 +1,33 @@
+[submodule "vim/bundle/fugitive"]
+	path = vim/bundle/fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule "vim/bundle/syntastic"]
+	path = vim/bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
+[submodule "vim/bundle/python-mode"]
+	path = vim/bundle/python-mode
+	url = git://github.com/klen/python-mode.git
+[submodule "vim/bundle/jedi-vim"]
+	path = vim/bundle/jedi-vim
+	url = git://github.com/davidhalter/jedi-vim.git
+[submodule "vim/bundle/scss-syntax"]
+	path = vim/bundle/scss-syntax
+	url = git://github.com/cakebaker/scss-syntax.vim.git
+[submodule "vim/bundle/django"]
+	path = vim/bundle/django
+	url = git://github.com/vim-scripts/django.vim.git
+[submodule "vim/bundle/editorconfig"]
+	path = vim/bundle/editorconfig
+	url = git://github.com/editorconfig/editorconfig-vim.git
+[submodule "vim/bundle/vim-javascript"]
+	path = vim/bundle/vim-javascript
+	url = git://github.com/pangloss/vim-javascript.git
+[submodule "vim/bundle/spacehi"]
+	path = vim/bundle/spacehi
+	url = git://github.com/vim-scripts/spacehi.vim.git
+[submodule "vim/bundle/comments"]
+	path = vim/bundle/comments
+	url = git://github.com/vim-scripts/comments.vim.git
+[submodule "vim/bundle/markdown"]
+	path = vim/bundle/markdown
+	url = git://github.com/tpope/vim-markdown.git
