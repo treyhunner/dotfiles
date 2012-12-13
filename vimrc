@@ -38,8 +38,12 @@ set splitright
 set directory=~/.vimbkp//
 set backupdir=~/.vimbkp//
 
-" Enable filetype-aware indentation and syntax highlighting rules
 if has("autocmd")
+  " Enable filetype-aware indentation and syntax highlighting rules
   filetype plugin indent on
+
+  " Disable visual and audible bells
+  set noerrorbells visualbell t_vb=
+  autocmd GUIEnter * set visualbell t_vb=
 endif
 
