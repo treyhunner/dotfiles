@@ -12,6 +12,7 @@ set cpoptions=aABceFs           " Set some reasonable vi-compatible behavior
 set backspace=indent,eol,start  " Allow backspace over indentation and newlines
 set guioptions=agi              " Set gVim guioptions (no toolbar or scrollbar)
 set number                      " Turn on line numbers
+set showtabline=2               " Always show tab bar
 
 " Use one of my favorite color schemes if available
 syntax on
