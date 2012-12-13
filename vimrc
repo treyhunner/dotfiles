@@ -17,7 +17,7 @@ set showtabline=2               " Always show tab bar
 " Use one of my favorite color schemes if available
 syntax on
 try
-  set background=dark
+  set background=light
   colorscheme solarized
 catch
   silent! colorscheme desert
