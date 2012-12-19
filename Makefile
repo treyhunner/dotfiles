@@ -30,7 +30,9 @@ zsh:
 
 vim:
 	@echo Copying vim config
+	git submodule update --init
 	$(CPCMD) $(PWD)/vimrc $(DEST)/.vimrc
+	$(CPCMD) $(PWD)/vim-files $(DEST)/.vim
 
 terminal:
 	@echo Copying gnome-terminal config
