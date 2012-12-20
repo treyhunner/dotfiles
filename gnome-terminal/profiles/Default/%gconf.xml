@@ -3,6 +3,13 @@
 	<entry name="visible_name" mtime="1324749704" type="string">
 		<stringvalue>Default</stringvalue>
 	</entry>
+
+	<!-- Run custom command "tmuxstart main" by default -->
+	<entry name="custom_command" mtime="1355904098" type="string">
+		<stringvalue>tmuxstart main</stringvalue>
+	</entry>
+	<entry name="use_custom_command" mtime="1355904098" type="bool" value="true"/>
+
 	<entry name="silent_bell" mtime="1324749704" type="bool" value="true"/>
 	<entry name="alternate_screen_scroll" mtime="1324749704" type="bool" value="true"/>
 
