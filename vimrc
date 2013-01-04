@@ -67,3 +67,6 @@ let g:pymode_rope_goto_def_newwin = "new"
 
 " Jedi options
 let g:jedi#show_function_definition = "0"
+
+" Hide Python binaries and swap files
+let g:netrw_list_hide = '.py[co]$,.swp$,\(^\|\s\s\)\zs\.\S\+'
