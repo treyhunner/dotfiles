@@ -70,3 +70,16 @@ let g:jedi#show_function_definition = "0"
 
 " Hide Python binaries and swap files
 let g:netrw_list_hide = '.py[co]$,.swp$,\(^\|\s\s\)\zs\.\S\+'
+
+" vimux shortcuts
+map <Leader>vp :VimuxPromptCommand<CR>
+map <Leader>vl :VimuxRunLastCommand<CR>
+map <Leader>vi :VimuxInspectRunner<CR>
+map <Leader>vq :VimuxCloseRunner<CR>
+map <Leader>vx :VimuxClosePanes<CR>
+let g:VimuxUseNearestPane = 1
+let g:VimuxHeight = "5"
+
+command! Gpull :call VimuxRunCommand("git pull")
+command! Gpush :call VimuxRunCommand("git push")
+command! Gtop :e `git rev-parse --show-toplevel`

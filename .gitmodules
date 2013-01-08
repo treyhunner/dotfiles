@@ -31,3 +31,6 @@
 [submodule "vim-files/bundle/markdown"]
 	path = vim-files/bundle/markdown
 	url = git://github.com/tpope/vim-markdown.git
+[submodule "vim-files/bundle/vimux"]
+	path = vim-files/bundle/vimux
+	url = git://github.com/benmills/vimux.git
