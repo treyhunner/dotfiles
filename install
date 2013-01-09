@@ -1,0 +1,23 @@
+#!/bin/sh
+
+dir=$(dirname $(readlink -f $0))
+backup_dir="$dir.bkp.$(date --rfc-3339=ns)"
+files="tmux.conf vimrc zshrc screenrc gitignore xmonad gnome-terminal:gconf/apps"
+
+echo "Installing symlinks to: $dir"
+
+mkdir -p "$backup_dir"
+
+for file_pair in $files ; do
+    file="${file_pair%%:*}"
+    if [ "$file" = "$file_pair" ] ; then
+        target_dir="$HOME/."
+    else
+        target_dir="$HOME/.${file_pair##*:}/"
+    fi
+    target_file="$target_dir$file"
+
+    echo "Installing dotfile: $file"
+    mv "$target_file" "$backup_dir/"
+    ln -s "$dir/$file" "$target_file"
+done

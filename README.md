@@ -5,24 +5,15 @@ account on a new system.
 
 ## Installation
 
-These files can be installed with [GNU make][].  For example, to install my
-screen configuration file use:
+This repository (or a fork of this repo) is meant to be stored in a permanent
+location in your home directory so symbolic links of each applicable dotfile
+can be linked to it.
 
-    make screen
+Move this dotfiles directory to a semi-permanent home (e.g. `~/.dotfiles`) and
+execute the included `install` script:
 
-To install all configuration files use:
-
-    make
-
-The default command used to install configuration files is `cp -r -n`.  This
-command copies files recursively and does not overwtrite existing files.  To
-change the command used to install configuration files pass `CMD` and/or `ARGS`
-parameters to `make`.  For example, this will install install the screen
-configuration file and overwrite existing files:
-
-    make ARGS=-r screen
-
-[GNU make]: http://www.gnu.org/software/make/
+    git clone git://github.com/treyhunner/dotfiles.git ~/.dotfiles
+    ~/.dotfiles/install
 
 ## Copying
 
