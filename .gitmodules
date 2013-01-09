@@ -1,36 +1,36 @@
-[submodule "vim-files/bundle/fugitive"]
-	path = vim-files/bundle/fugitive
+[submodule "vim/bundle/fugitive"]
+	path = vim/bundle/fugitive
 	url = git://github.com/tpope/vim-fugitive.git
-[submodule "vim-files/bundle/syntastic"]
-	path = vim-files/bundle/syntastic
+[submodule "vim/bundle/syntastic"]
+	path = vim/bundle/syntastic
 	url = git://github.com/scrooloose/syntastic.git
-[submodule "vim-files/bundle/python-mode"]
-	path = vim-files/bundle/python-mode
+[submodule "vim/bundle/python-mode"]
+	path = vim/bundle/python-mode
 	url = git://github.com/klen/python-mode.git
-[submodule "vim-files/bundle/jedi-vim"]
-	path = vim-files/bundle/jedi-vim
+[submodule "vim/bundle/jedi-vim"]
+	path = vim/bundle/jedi-vim
 	url = git://github.com/davidhalter/jedi-vim.git
-[submodule "vim-files/bundle/scss-syntax"]
-	path = vim-files/bundle/scss-syntax
+[submodule "vim/bundle/scss-syntax"]
+	path = vim/bundle/scss-syntax
 	url = git://github.com/cakebaker/scss-syntax.vim.git
-[submodule "vim-files/bundle/django"]
-	path = vim-files/bundle/django
+[submodule "vim/bundle/django"]
+	path = vim/bundle/django
 	url = git://github.com/vim-scripts/django.vim.git
-[submodule "vim-files/bundle/editorconfig"]
-	path = vim-files/bundle/editorconfig
+[submodule "vim/bundle/editorconfig"]
+	path = vim/bundle/editorconfig
 	url = git://github.com/editorconfig/editorconfig-vim.git
-[submodule "vim-files/bundle/vim-javascript"]
-	path = vim-files/bundle/vim-javascript
+[submodule "vim/bundle/vim-javascript"]
+	path = vim/bundle/vim-javascript
 	url = git://github.com/pangloss/vim-javascript.git
-[submodule "vim-files/bundle/spacehi"]
-	path = vim-files/bundle/spacehi
+[submodule "vim/bundle/spacehi"]
+	path = vim/bundle/spacehi
 	url = git://github.com/vim-scripts/spacehi.vim.git
-[submodule "vim-files/bundle/comments"]
-	path = vim-files/bundle/comments
+[submodule "vim/bundle/comments"]
+	path = vim/bundle/comments
 	url = git://github.com/vim-scripts/comments.vim.git
-[submodule "vim-files/bundle/markdown"]
-	path = vim-files/bundle/markdown
+[submodule "vim/bundle/markdown"]
+	path = vim/bundle/markdown
 	url = git://github.com/tpope/vim-markdown.git
-[submodule "vim-files/bundle/vimux"]
-	path = vim-files/bundle/vimux
+[submodule "vim/bundle/vimux"]
+	path = vim/bundle/vimux
 	url = git://github.com/benmills/vimux.git
