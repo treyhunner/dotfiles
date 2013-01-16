@@ -72,6 +72,7 @@ let g:jedi#show_function_definition = "0"
 
 " Hide Python binaries and swap files
 let g:netrw_list_hide = '.py[co]$,.swp$,\(^\|\s\s\)\zs\.\S\+'
+set wildignore=*.swp,*.bak,*.pyc,*.class
 
 " vimux shortcuts
 map <Leader>vp :VimuxPromptCommand<CR>
