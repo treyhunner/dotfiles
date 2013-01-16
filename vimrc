@@ -17,6 +17,8 @@ set showtabline=2               " Always show tab bar
 " Use one of my favorite color schemes if available
 syntax on
 try
+  let g:solarized_termtrans=1
+  set t_Co=16
   set background=light
   colorscheme solarized
 catch
