@@ -65,3 +65,4 @@ fi
 set -o emacs
 
 export EDITOR=vim  # Use vim as default text editor
+stty -ixon
