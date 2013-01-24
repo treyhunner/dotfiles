@@ -37,6 +37,9 @@ set splitbelow
 set splitright
 
 " Move all temporary files to single directory
+if !isdirectory($HOME . '/.vimbkp')
+  call mkdir($HOME . '/.vimbkp')
+endif
 set directory=~/.vimbkp//
 set backupdir=~/.vimbkp//
 
