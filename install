@@ -2,7 +2,7 @@
 
 dir=$(dirname $(readlink -f $0))
 backup_dir="$dir.bkp.$(date --rfc-3339=ns)"
-files="tmux.conf vim vimrc zshrc screenrc gitignore xmonad gnome-terminal:gconf/apps"
+files="tmux.conf vim vimrc zshrc screenrc gitignore xmonad"
 
 echo "Installing symlinks to: $dir"
 
@@ -21,3 +21,8 @@ for file_pair in $files ; do
     mv "$target_file" "$backup_dir/"
     ln -s "$dir/$file" "$target_file"
 done
+
+
+# Install Gnome Terminal configuration
+gconftool-2 --dump '/apps/gnome-terminal' > "$backup_dir/gnome-terminal.xml"
+gconftool-2 --load gnome-terminal.xml
