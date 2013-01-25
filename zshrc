@@ -29,6 +29,8 @@ if which hub &> /dev/null ; then
     function git(){ hub "$@" }
 fi
 
+alias gt='cd $(git rev-parse --show-toplevel)'
+
 # Do not wait for full input before showing output in less
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
