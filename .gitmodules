@@ -40,3 +40,6 @@
 [submodule "vim/bundle/vim-colors-solarized"]
 	path = vim/bundle/vim-colors-solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule "vim/bundle/vim-qargs"]
+	path = vim/bundle/vim-qargs
+	url = git://github.com/nelstrom/vim-qargs.git
