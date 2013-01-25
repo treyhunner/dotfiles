@@ -64,6 +64,11 @@ if which virtualenvwrapper.sh &> /dev/null ; then
     export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 fi
 
+function mkvenv() {
+    mkvirtualenv $1
+    setvirtualenvproject $VIRTUAL_ENV $(pwd)
+}
+
 if [ "$VIRTUALENV" != "" ] ; then
     workon "$VIRTUALENV"
 fi
