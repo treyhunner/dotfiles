@@ -1,0 +1,8 @@
+[user]
+	email = tre"yhun"ner@gm"ail.c"om
+	name = Trey Hunner
+[core]
+	autocrlf = input
+	excludesfile = ~/.gitignore
+[push]
+	default = tracking
