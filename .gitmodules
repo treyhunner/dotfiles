@@ -46,3 +46,6 @@
 [submodule "vim/bundle/ctrlp.vim"]
 	path = vim/bundle/ctrlp.vim
 	url = git://github.com/kien/ctrlp.vim.git
+[submodule "zsh/git-prompt"]
+	path = zsh/git-prompt
+	url = git://github.com/olivierverdier/zsh-git-prompt.git
