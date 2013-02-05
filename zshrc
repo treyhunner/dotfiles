@@ -57,6 +57,8 @@ else
     PROMPT='%m:%3~%# '
 fi
 
+source ~/.zsh/git-flow-completion/git-flow-completion.zsh
+
 # Set virtualenvwrapper settings
 if which virtualenvwrapper.sh &> /dev/null ; then
     export WORKON_HOME=$HOME/.virtualenvs
