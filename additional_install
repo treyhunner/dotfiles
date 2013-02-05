@@ -1,0 +1,15 @@
+# Set shell to ZSH
+echo "Enter password to set shell to zsh"
+chsh -s $(which zsh)
+
+echo "Installing setuptools, pip, virtualenv, Fabric, and Virtualenvwrapper"
+sudo apt-get install python-setuptools
+sudo easy_install pip
+sudo pip install virtualenv fabric virtualenvwrapper
+
+echo "Installing hub"
+curl http://defunkt.io/hub/standalone -sLo ~/bin/hub &&
+  chmod +x ~/bin/hub
+
+echo "Installing git-flow"
+sudo apt-get install git-flow
