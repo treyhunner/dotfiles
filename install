@@ -8,6 +8,9 @@ echo "Installing symlinks to: $dir"
 
 mkdir -p "$backup_dir"
 
+echo "Updating submodules"
+git submodule update --init
+
 for file_pair in $files ; do
     file="${file_pair%%:*}"
     if [ "$file" = "$file_pair" ] ; then
