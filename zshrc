@@ -10,7 +10,7 @@ SAVEHIST=1000
 
 # Add local bin directory to PATH
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+    PATH="$HOME/bin:$PATH:$HOME/.local/bin"
     export PATH
 fi
 
@@ -70,6 +70,10 @@ function mkvenv() {
     mkvirtualenv $1
     setvirtualenvproject $VIRTUAL_ENV $(pwd)
 }
+
+if which powerline &> /dev/null ; then
+    . ~/.zsh/powerline.zsh
+fi
 
 if [ "$VIRTUALENV" != "" ] ; then
     workon "$VIRTUALENV"

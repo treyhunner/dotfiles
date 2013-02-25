@@ -2,7 +2,7 @@
 
 dir=$(dirname $(readlink -f $0))
 backup_dir="$dir.bkp.$(date --rfc-3339=ns)"
-files="tmux.conf vim vimrc zshrc zsh screenrc gitignore gitconfig xmonad"
+files="tmux.conf tmux vimrc vim zshrc zsh screenrc gitignore gitconfig xmonad powerline fonts config/powerline"
 
 echo "Installing symlinks to: $dir"
 
@@ -29,3 +29,5 @@ done
 # Install Gnome Terminal configuration
 gconftool-2 --dump '/apps/gnome-terminal' > "$backup_dir/gnome-terminal.xml"
 gconftool-2 --load gnome-terminal.xml
+
+pip install --user ./powerline/

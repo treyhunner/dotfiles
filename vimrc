@@ -13,6 +13,8 @@ set backspace=indent,eol,start  " Allow backspace over indentation and newlines
 set guioptions=agi              " Set gVim guioptions (no toolbar or scrollbar)
 set number                      " Turn on line numbers
 set showtabline=2               " Always show tab bar
+set laststatus=2                " Always show status bar
+set noshowmode                  " Hide mode (shown in powerline status bar)
 
 " Use one of my favorite color schemes if available
 syntax on
