@@ -1,0 +1,15 @@
+; Default EditorConfig for various file formats
+; http://editorconfig.org
+
+root = true
+
+[*.{py,sh,hs,c,h,vim,rst,m}]
+indent_style = space
+indent_size = 4
+
+[*.{html,rb,js,css,scss}]
+indent_style = space
+indent_size = 2
+
+[.git**config]
+indent_style = tab
