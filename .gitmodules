@@ -52,3 +52,6 @@
 [submodule "powerline"]
 	path = powerline
 	url = git://github.com/Lokaltog/powerline.git
+[submodule "vim/bundle/gitgutter"]
+	path = vim/bundle/gitgutter
+	url = git://github.com/airblade/vim-gitgutter.git
