@@ -37,26 +37,6 @@ alias gt='cd $(git rev-parse --show-toplevel)'
 # Source Ruby Version Manager if available
 [ -s "$HOME/.rvm/scripts/rvm" ] && source "$HOME/.rvm/scripts/rvm"
 
-# Use git status for prompt if git-prompt installed
-if [ -s "$HOME/.zsh/git-prompt/zshrc.sh" ] ; then
-    source "$HOME/.zsh/git-prompt/zshrc.sh"
-
-    git_status() {
-        GIT_STATUS=$(git_super_status)
-        if [ -n "$GIT_STATUS" ]; then
-            STATUS='%1~'$GIT_STATUS
-        else
-            STATUS='%3~'
-        fi
-        echo "$STATUS"
-    }
-
-    # Set prompt
-    PROMPT='%m:$(git_status)%# '
-else
-    PROMPT='%m:%3~%# '
-fi
-
 source ~/.zsh/git-flow-completion/git-flow-completion.zsh
 
 # Set virtualenvwrapper settings
