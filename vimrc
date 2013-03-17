@@ -57,6 +57,8 @@ endif
 " Highlight tabs and trailing whitespace automatically
 autocmd BufNewFile,BufReadPost,FilterReadPost,FileReadPost,Syntax * SpaceHi
 
+let mapleader = " "
+
 " Syntastic options
 let g:syntastic_check_on_open=1
 let g:syntastic_error_symbol='✗'
