@@ -58,3 +58,6 @@
 [submodule "vim/bundle/zencoding"]
 	path = vim/bundle/zencoding
 	url = git://github.com/mattn/zencoding-vim.git
+[submodule "vim/bundle/matchit"]
+	path = vim/bundle/matchit
+	url = git://github.com/vim-scripts/matchit.zip.git
