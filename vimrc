@@ -58,6 +58,7 @@ endif
 autocmd BufNewFile,BufReadPost,FilterReadPost,FileReadPost,Syntax * SpaceHi
 
 let mapleader = " "
+nmap <CR> :write<CR>
 
 " Syntastic options
 let g:syntastic_check_on_open=1
