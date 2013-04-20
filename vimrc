@@ -1,7 +1,6 @@
 " Manage runtime path with pathogen (if available)
 silent! call pathogen#infect()
 
-set autochdir                   " Change directory to the current working file
 set autoindent                  " Enable auto indentation
 set ruler                       " Show line and column numbers
 set showcmd                     " Show command in status line
@@ -15,6 +14,10 @@ set number                      " Turn on line numbers
 set showtabline=2               " Always show tab bar
 set laststatus=2                " Always show status bar
 set noshowmode                  " Hide mode (shown in powerline status bar)
+set ignorecase                  " Use case insensitive searches by default
+set smartcase                   " Use case sensitive search when uppercase used
+set incsearch                   " Jump to search strings while typing
+set hlsearch                    " Highlight search results
 
 " Use one of my favorite color schemes if available
 syntax on
@@ -59,6 +62,7 @@ autocmd BufNewFile,BufReadPost,FilterReadPost,FileReadPost,Syntax * SpaceHi
 
 let mapleader = " "
 nmap <CR> :write<CR>
+nmap <Leader><Leader> :nohlsearch<CR>:<Backspace>
 
 " Syntastic options
 let g:syntastic_check_on_open=1
