@@ -104,6 +104,12 @@ command! Gpull :call VimuxRunCommand("git pull")
 command! Gpush :call VimuxRunCommand("git push")
 command! Gtop :e `git rev-parse --show-toplevel`
 
+" Add keyboard shortcuts for navigating splits
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-l> <c-w>l
+map <c-h> <c-w>h
+
 " Add keyboard shortcuts for moving between tabs
 map <S-tab> <esc>:tabprevious<CR>
 map <tab> <esc>:tabnext<CR>
