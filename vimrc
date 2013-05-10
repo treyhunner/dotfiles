@@ -84,6 +84,12 @@ let g:pymode_folding = 0
 let g:pymode_utils_whitespaces = 0
 let g:pymode_rope_goto_def_newwin = "new"
 
+let g:user_zen_settings = {
+\  'html' : {
+\    'empty_element_suffix': '>',
+\  }
+\}
+
 " Jedi options
 let g:jedi#show_function_definition = "0"
 
