@@ -37,6 +37,11 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 
+" Live dangerously
+set nobackup
+set nowritebackup
+set noswapfile
+
 " Create splits to the right (vertical) or to the bottom (horizontal)
 set splitbelow
 set splitright
