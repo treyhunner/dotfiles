@@ -113,3 +113,8 @@ map <c-h> <c-w>h
 " Add keyboard shortcuts for moving between tabs
 map <S-tab> <esc>:tabprevious<CR>
 map <tab> <esc>:tabnext<CR>
+
+let g:ctrlp_map = '<Leader>t'
+let g:ctrlp_user_command = 'ag --nogroup --nobreak --noheading --nocolor -g "" %s '
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_switch_buffer = 1
