@@ -110,9 +110,7 @@ map <Leader>vx :VimuxClosePanes<CR>
 let g:VimuxUseNearestPane = 1
 let g:VimuxHeight = "5"
 
-command! Gpull :call VimuxRunCommand("git pull")
-command! Gpush :call VimuxRunCommand("git push")
-command! Gtop :e `git rev-parse --show-toplevel`
+nmap <Leader>o :set paste!<CR>
 
 " Add keyboard shortcuts for navigating splits
 map <c-j> <c-w>j
