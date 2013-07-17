@@ -73,16 +73,18 @@ nmap <Leader><Leader> :nohlsearch<CR>:<Backspace>
 let g:syntastic_check_on_open=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
-let g:syntastic_python_checker_args = "--max-line-length=80"
-let g:syntastic_mode_map = { 'mode': 'passive',
+let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': ['python', 'javascript'],
                            \ 'passive_filetypes': ['html'] }
+let g:syntastic_python_checkers=['flake8']
+let g:syntastic_auto_loc_list = 0
 
 " Python Mode options
 let g:pymode_lint = 0
 let g:pymode_folding = 0
 let g:pymode_utils_whitespaces = 0
 let g:pymode_rope_goto_def_newwin = "new"
+let g:pymode_rope = 0
 
 let g:user_zen_settings = {
 \  'html' : {
@@ -92,6 +94,8 @@ let g:user_zen_settings = {
 
 " Jedi options
 let g:jedi#show_function_definition = "0"
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 0
 
 " Hide Python binaries and swap files
 let g:netrw_list_hide = '.py[co]$,.swp$,\(^\|\s\s\)\zs\.\S\+'
