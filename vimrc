@@ -110,6 +110,9 @@ map <Leader>vx :VimuxClosePanes<CR>
 let g:VimuxUseNearestPane = 1
 let g:VimuxHeight = "5"
 
+nmap gh :GitGutterNextHunk<CR>
+nmap gH :GitGutterPrevHunk<CR>
+
 nmap <Leader>o :set paste!<CR>
 
 " Add keyboard shortcuts for navigating splits
