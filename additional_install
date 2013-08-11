@@ -3,9 +3,8 @@ echo "Enter password to set shell to zsh"
 chsh -s $(which zsh)
 
 echo "Installing setuptools, pip, virtualenv, Fabric, and Virtualenvwrapper"
-sudo apt-get install python-setuptools
-sudo easy_install pip
-sudo pip install virtualenv fabric virtualenvwrapper
+sudo apt-get install python-setuptools python-virtualenv virtualenvwrapper
+sudo pip install fabric
 
 echo "Installing hub"
 curl http://defunkt.io/hub/standalone -sLo ~/bin/hub &&
