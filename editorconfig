@@ -3,6 +3,14 @@
 
 root = true
 
+; General defaults my editor should be using anyways
+[*]
+charset = utf-8
+insert_final_newline = true
+end_of_line = lf
+tab_width = 8
+trim_trailing_whitespace = sometimes
+
 [*.{py,sh,hs,c,h,vim,rst,m}]
 indent_style = space
 indent_size = 4
