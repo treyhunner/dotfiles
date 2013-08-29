@@ -11,7 +11,7 @@ set cpoptions=aABceFs           " Set some reasonable vi-compatible behavior
 set backspace=indent,eol,start  " Allow backspace over indentation and newlines
 set guioptions=agi              " Set gVim guioptions (no toolbar or scrollbar)
 set number                      " Turn on line numbers
-set showtabline=2               " Always show tab bar
+set showtabline=1               " Show tab bar conditionally
 set laststatus=2                " Always show status bar
 set noshowmode                  " Hide mode (shown in powerline status bar)
 set ignorecase                  " Use case insensitive searches by default
@@ -65,9 +65,18 @@ endif
 " Highlight tabs and trailing whitespace automatically
 autocmd BufNewFile,BufReadPost,FilterReadPost,FileReadPost,Syntax * SpaceHi
 
+" Use SPACE for leader key
 let mapleader = " "
+
+" Use ENTER to write files, and SPACE-SPACE to clear search highlighting
 nmap <CR> :write<CR>
 nmap <Leader><Leader> :nohlsearch<CR>:<Backspace>
+
+" Use lusty juggler for buffer management
+let g:LustyJugglerKeyboardLayout = "dvorak"
+nmap <c-b> :LustyJuggler<cr>
+map <c-tab> <C-W>w
+map <leader>w :Bclose<cr>
 
 " Syntastic options
 let g:syntastic_check_on_open=1
