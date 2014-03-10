@@ -64,3 +64,9 @@
 [submodule "vim/bundle/LustyJuggler"]
 	path = vim/bundle/LustyJuggler
 	url = git://github.com/vim-scripts/LustyJuggler.git
+[submodule "vim/bundle/bclose"]
+	path = vim/bundle/bclose
+	url = git://github.com/bcaccinolo/bclose.git
+[submodule "vim/bundle/emmet"]
+	path = vim/bundle/emmet
+	url = https://github.com/mattn/emmet-vim.git
