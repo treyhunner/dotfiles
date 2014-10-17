@@ -18,6 +18,21 @@ set ignorecase                  " Use case insensitive searches by default
 set smartcase                   " Use case sensitive search when uppercase used
 set incsearch                   " Jump to search strings while typing
 set hlsearch                    " Highlight search results
+set spell                       " Enable spell checking
+
+let g:PreserveNoEOL = 1
+
+function! EditorConfigEOLHook(config)
+     if has_key(a:config, 'insert_final_newline')
+         if a:config['insert_final_newline'] == "false"
+             silent! SetNoEOL
+        endif
+     endif
+
+     return 0   " Return 0 to show no error happened
+ endfunction
+
+ call editorconfig#AddNewHook(function('EditorConfigEOLHook'))
 
 " Use one of my favorite color schemes if available
 syntax on
