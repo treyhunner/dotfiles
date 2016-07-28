@@ -6,3 +6,6 @@
 	excludesfile = ~/.gitignore
 [push]
 	default = tracking
+[alias]
+	url = !hub browse -u -- commit/$(git rev-parse HEAD)
+	context = blame
