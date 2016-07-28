@@ -1,90 +1,12 @@
-[submodule "vim/bundle/fugitive"]
-	path = vim/bundle/fugitive
-	url = git://github.com/tpope/vim-fugitive.git
-[submodule "vim/bundle/syntastic"]
-	path = vim/bundle/syntastic
-	url = git://github.com/scrooloose/syntastic.git
-[submodule "vim/bundle/python-mode"]
-	path = vim/bundle/python-mode
-	url = git://github.com/klen/python-mode.git
-[submodule "vim/bundle/jedi-vim"]
-	path = vim/bundle/jedi-vim
-	url = git://github.com/davidhalter/jedi-vim.git
-[submodule "vim/bundle/scss-syntax"]
-	path = vim/bundle/scss-syntax
-	url = git://github.com/cakebaker/scss-syntax.vim.git
-[submodule "vim/bundle/django"]
-	path = vim/bundle/django
-	url = git://github.com/vim-scripts/django.vim.git
-[submodule "vim/bundle/editorconfig"]
-	path = vim/bundle/editorconfig
-	url = git://github.com/editorconfig/editorconfig-vim.git
-[submodule "vim/bundle/vim-javascript"]
-	path = vim/bundle/vim-javascript
-	url = git://github.com/pangloss/vim-javascript.git
-[submodule "vim/bundle/spacehi"]
-	path = vim/bundle/spacehi
-	url = git://github.com/vim-scripts/spacehi.vim.git
-[submodule "vim/bundle/comments"]
-	path = vim/bundle/comments
-	url = git://github.com/vim-scripts/comments.vim.git
-[submodule "vim/bundle/markdown"]
-	path = vim/bundle/markdown
-	url = git://github.com/tpope/vim-markdown.git
-[submodule "vim/bundle/vimux"]
-	path = vim/bundle/vimux
-	url = git://github.com/benmills/vimux.git
-[submodule "vim/bundle/vim-unimpaired"]
-	path = vim/bundle/vim-unimpaired
-	url = git://github.com/tpope/vim-unimpaired.git
-[submodule "vim/bundle/vim-colors-solarized"]
-	path = vim/bundle/vim-colors-solarized
-	url = git://github.com/altercation/vim-colors-solarized.git
-[submodule "vim/bundle/vim-qargs"]
-	path = vim/bundle/vim-qargs
-	url = git://github.com/nelstrom/vim-qargs.git
-[submodule "vim/bundle/ctrlp.vim"]
-	path = vim/bundle/ctrlp.vim
-	url = git://github.com/kien/ctrlp.vim.git
 [submodule "zsh/git-flow-completion"]
 	path = zsh/git-flow-completion
 	url = git://github.com/bobthecow/git-flow-completion.git
 [submodule "powerline"]
 	path = powerline
 	url = git://github.com/Lokaltog/powerline.git
-[submodule "vim/bundle/gitgutter"]
-	path = vim/bundle/gitgutter
-	url = git://github.com/airblade/vim-gitgutter.git
-[submodule "vim/bundle/zencoding"]
-	path = vim/bundle/zencoding
-	url = git://github.com/mattn/zencoding-vim.git
-[submodule "vim/bundle/matchit"]
-	path = vim/bundle/matchit
-	url = git://github.com/vim-scripts/matchit.zip.git
-[submodule "vim/bundle/LustyJuggler"]
-	path = vim/bundle/LustyJuggler
-	url = git://github.com/vim-scripts/LustyJuggler.git
-[submodule "vim/bundle/bclose"]
-	path = vim/bundle/bclose
-	url = git://github.com/bcaccinolo/bclose.git
-[submodule "vim/bundle/emmet"]
-	path = vim/bundle/emmet
-	url = https://github.com/mattn/emmet-vim.git
-[submodule "vim/bundle/markology"]
-	path = vim/bundle/markology
-	url = https://github.com/jeetsukumaran/vim-markology.git
 [submodule "vim/bundle/ultisnips"]
 	path = vim/bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
 [submodule "vim/bundle/github-issues"]
 	path = vim/bundle/github-issues
 	url = https://github.com/jaxbot/github-issues.vim.git
-[submodule "vim/bundle/PreserveNoEOL"]
-	path = vim/bundle/PreserveNoEOL
-	url = https://github.com/vim-scripts/PreserveNoEOL.git
-[submodule "vim/bundle/rename"]
-	path = vim/bundle/rename
-	url = git@github.com:danro/rename.vim.git
-[submodule "vim/bundle/vim-jdaddy"]
-	path = vim/bundle/vim-jdaddy
-	url = git@github.com:tpope/vim-jdaddy.git

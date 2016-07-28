@@ -2,7 +2,7 @@
 
 dir=$(dirname $(readlink -f $0))
 backup_dir="$dir.bkp.$(date --rfc-3339=ns)"
-files="tmux.conf tmux vimrc vim zshrc zsh screenrc gitignore gitconfig xmonad editorconfig powerline fonts config/powerline"
+files="tmux.conf tmux config/nvim zshrc zsh screenrc gitignore gitconfig xmonad editorconfig powerline fonts config/powerline"
 
 echo "Installing symlinks to: $dir"
 
