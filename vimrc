@@ -1,5 +1,5 @@
 " Manage runtime path with pathogen (if available)
-silent! call pathogen#infect()
+call pathogen#infect()
 
 set autoindent                  " Enable auto indentation
 set ruler                       " Show line and column numbers
@@ -7,7 +7,7 @@ set showcmd                     " Show command in status line
 set nrformats=                  " Increment numbers in decimal only
 set mouse=a                     " Enable mouse support in terminal
 set wildmode=longest,list       " Smart tab completion from command line
-set cpoptions=aABceFs           " Set some reasonable vi-compatible behavior
+set cpoptions=aABceFsH          " Set some reasonable vi-compatible behavior
 set backspace=indent,eol,start  " Allow backspace over indentation and newlines
 set guioptions=agi              " Set gVim guioptions (no toolbar or scrollbar)
 set number                      " Turn on line numbers
@@ -101,7 +101,13 @@ let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': ['python', 'javascript'],
                            \ 'passive_filetypes': ['html'] }
 let g:syntastic_python_checkers=['flake8']
+let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_auto_loc_list = 0
+let g:syntastic_enable_async = 1
+"let g:syntastic_async_tmux_if_possible = 1
+
+" Markology
+let g:markology_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 " Python Mode options
 let g:pymode_lint = 0
@@ -110,6 +116,9 @@ let g:pymode_utils_whitespaces = 0
 let g:pymode_rope_goto_def_newwin = "new"
 let g:pymode_rope = 0
 
+" Ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"
+
 let g:user_zen_settings = {
 \  'html' : {
 \    'empty_element_suffix': '>',
@@ -117,9 +126,10 @@ let g:user_zen_settings = {
 \}
 
 " Jedi options
-let g:jedi#show_function_definition = "0"
+let g:jedi#show_call_signatures = 0
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
+let g:jedi#auto_initialization = 0
 
 " Hide Python binaries and swap files
 let g:netrw_list_hide = '.py[co]$,.swp$,\(^\|\s\s\)\zs\.\S\+'
@@ -134,8 +144,8 @@ map <Leader>vx :VimuxClosePanes<CR>
 let g:VimuxUseNearestPane = 1
 let g:VimuxHeight = "5"
 
-nmap gh :GitGutterNextHunk<CR>
-nmap gH :GitGutterPrevHunk<CR>
+nmap gh <Plug>GitGutterNextHunk
+nmap gH <Plug>GitGutterPrevHunk
 
 nmap <Leader>o :set paste!<CR>
 
@@ -145,6 +155,8 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
+inoremap <c-c> <nop>
+
 " Add keyboard shortcuts for moving between tabs
 map <S-tab> <esc>:tabprevious<CR>
 map <tab> <esc>:tabnext<CR>
@@ -153,3 +165,29 @@ let g:ctrlp_map = '<Leader>t'
 let g:ctrlp_user_command = 'ag --nogroup --nobreak --noheading --nocolor -g "" %s '
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 1
+
+let s:hidden_all = 0
+function! ToggleHiddenAll()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+        " set noshowmode
+        set noruler
+        set laststatus=0
+        set noshowcmd
+        set showtabline=0
+        set numberwidth=1
+        let g:syntastic_check_on_open=0
+        SyntasticReset
+    else
+        let s:hidden_all = 0
+        " set showmode
+        set ruler
+        set laststatus=2
+        set showcmd
+        set showtabline=1
+        set numberwidth=4
+        let g:syntastic_check_on_open=1
+    endif
+endfunction
+
+nnoremap <S-h> :call ToggleHiddenAll()<CR>:<Backspace>

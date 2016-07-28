@@ -20,7 +20,7 @@ execute the included `install` script:
 
 To add a vim plugin:
 
-    git submodule add git://github.com/username/projectname.git vim/bundles/projectname
+    git submodule add git://github.com/username/projectname.git vim/bundle/projectname
 
 ## Copying
 

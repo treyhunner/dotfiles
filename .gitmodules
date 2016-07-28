@@ -82,3 +82,9 @@
 [submodule "vim/bundle/PreserveNoEOL"]
 	path = vim/bundle/PreserveNoEOL
 	url = https://github.com/vim-scripts/PreserveNoEOL.git
+[submodule "vim/bundle/rename"]
+	path = vim/bundle/rename
+	url = git@github.com:danro/rename.vim.git
+[submodule "vim/bundle/vim-jdaddy"]
+	path = vim/bundle/vim-jdaddy
+	url = git@github.com:tpope/vim-jdaddy.git
