@@ -16,12 +16,6 @@ execute the included `install` script:
     ~/.dotfiles/install
 
 
-## Adding a Vim plugin
-
-To add a vim plugin:
-
-    git submodule add git://github.com/username/projectname.git vim/bundle/projectname
-
 ## Copying
 
 To the extent possible under law, the author has dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
