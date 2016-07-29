@@ -63,6 +63,7 @@ inoremap <c-c> <nop>
 map <S-tab> <esc>:tabprevious<CR>
 map <tab> <esc>:tabnext<CR>
 
+" Install plugins
 call plug#begin('~/.config/nvim/plugged')
 function! DoRemote(arg)
   UpdateRemotePlugins
@@ -85,6 +86,7 @@ let g:python_host_prog = '/usr/bin/python2.7'
 " Enable deoplete on startup
 let g:deoplete#enable_at_startup = 1
 
+" Configure CtrlP plugin
 let g:ctrlp_map = '<Leader>t'
 let g:ctrlp_user_command = 'ag --nogroup --nobreak --noheading --nocolor -g "" %s '
 let g:ctrlp_working_path_mode = 'ra'
@@ -101,30 +103,26 @@ catch
   silent! colorscheme desert
 endtry
 
+" Run Neomake for buffer opens/writes
 autocmd! BufWritePost,BufEnter * Neomake
 
+" Toggle hiding of decorations on Shift-H
 let s:hidden_all = 0
 function! ToggleHiddenAll()
-    if s:hidden_all  == 0
+    if s:hidden_all == 0
         let s:hidden_all = 1
-        " set noshowmode
         set noruler
         set laststatus=0
         set noshowcmd
         set showtabline=0
-        set numberwidth=1
-        let g:syntastic_check_on_open=0
-        SyntasticReset
+        sign unplace *
     else
         let s:hidden_all = 0
-        " set showmode
         set ruler
         set laststatus=2
         set showcmd
         set showtabline=1
-        set numberwidth=4
-        let g:syntastic_check_on_open=1
+        Neomake
     endif
 endfunction
-
 nnoremap <S-h> :call ToggleHiddenAll()<CR>:<Backspace>

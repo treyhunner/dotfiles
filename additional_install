@@ -12,3 +12,11 @@ curl http://defunkt.io/hub/standalone -sLo ~/bin/hub &&
 
 echo "Installing git-flow"
 sudo apt-get install git-flow
+
+echo "Setting NeoVim as the default editor"
+sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+echo 1 | sudo update-alternatives --config vi
+echo 1 | sudo update-alternatives --config vim
+echo 1 | sudo update-alternatives --config editor
