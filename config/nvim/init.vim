@@ -10,7 +10,6 @@ set guioptions=agi              " Set gVim guioptions (no toolbar or scrollbar)
 set number                      " Turn on line numbers
 set showtabline=1               " Show tab bar conditionally
 set laststatus=2                " Always show status bar
-set noshowmode                  " Hide mode (shown in powerline status bar)
 set ignorecase                  " Use case insensitive searches by default
 set smartcase                   " Use case sensitive search when uppercase used
 set incsearch                   " Jump to search strings while typing
@@ -49,15 +48,16 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
-" Move all temporary files to single directory
-if !isdirectory($HOME . '/.vimbkp')
-  call mkdir($HOME . '/.vimbkp')
-endif
-set directory=~/.vimbkp//
-set backupdir=~/.vimbkp//
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg
+nnoremap  <leader>y  "+y
 
-" Ignore Ctrl-C
-inoremap <c-c> <nop>
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 " Add keyboard shortcuts for moving between tabs
 map <S-tab> <esc>:tabprevious<CR>
@@ -77,7 +77,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'danro/rename.vim'
+Plug 'moll/vim-bbye'
 call plug#end()
+
+:nnoremap <Leader>w :Bdelete<CR>
 
 " Set Python paths
 let g:python3_host_prog = '/usr/bin/python3.5'
