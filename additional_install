@@ -4,14 +4,10 @@ chsh -s $(which zsh)
 
 echo "Installing setuptools, pip, virtualenv, Fabric, and Virtualenvwrapper"
 sudo apt-get install python-setuptools python-virtualenv virtualenvwrapper
-sudo pip install fabric
 
 echo "Installing hub"
 curl http://defunkt.io/hub/standalone -sLo ~/bin/hub &&
   chmod +x ~/bin/hub
-
-echo "Installing git-flow"
-sudo apt-get install git-flow
 
 echo "Setting NeoVim as the default editor"
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
