@@ -9,3 +9,5 @@
 [alias]
 	url = !hub browse -u -- commit/$(git rev-parse HEAD)
 	context = blame
+[hub]
+	protocol = ssh
