@@ -78,6 +78,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'danro/rename.vim'
 Plug 'moll/vim-bbye'
+Plug 'Rykka/riv.vim'
 call plug#end()
 
 :nnoremap <Leader>w :Bdelete<CR>
@@ -94,6 +95,12 @@ let g:ctrlp_map = '<Leader>t'
 let g:ctrlp_user_command = 'ag --nogroup --nobreak --noheading --nocolor -g "" %s '
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 1
+
+" Configure riv plugin
+let g:riv_disable_folding = 1
+let g:riv_ignored_maps = '<CR>, <KEnter>'
+let g:riv_ignored_imaps = "<Tab>, <S-Tab>"
+let g:riv_ignored_nmaps = "<Tab>, <S-Tab>"
 
 " Use one of my favorite color schemes if available
 syntax on

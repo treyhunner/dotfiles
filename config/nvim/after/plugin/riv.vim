@@ -1,0 +1,1 @@
+nmap <CR>  :write<CR>
