@@ -59,6 +59,8 @@ nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
+set pastetoggle=<F2>
+
 " Add keyboard shortcuts for moving between tabs
 map <S-tab> <esc>:tabprevious<CR>
 map <tab> <esc>:tabnext<CR>
@@ -68,7 +70,7 @@ call plug#begin('~/.config/nvim/plugged')
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'neomake/neomake', { 'on': 'Neomake' }
 Plug 'ctrlpvim/ctrlp.vim'
