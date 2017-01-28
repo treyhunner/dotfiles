@@ -27,5 +27,6 @@ done
 
 
 # Install Gnome Terminal configuration
-gconftool-2 --dump '/apps/gnome-terminal' > "$backup_dir/gnome-terminal.xml"
-gconftool-2 --load gnome-terminal.xml
+PROFILE=$(dconf dump /org/gnome/terminal/legacy/profiles:/ | grep -e "\[\:\|visible-name" | sed 's/\[\(.*\)\]/\1/')
+dconf dump "/org/gnome/terminal/legacy/profiles:/$PROFILE/" > "$backup_dir/gnome-terminal.dconf"
+dconf load "/org/gnome/terminal/legacy/profiles:/$PROFILE/" < gnome-terminal.dconf
