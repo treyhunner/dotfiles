@@ -8,8 +8,10 @@ sudo apt-get remove dell-super-key  # this package is dumb...
 echo "Enter password to set shell to zsh"
 chsh -s $(which zsh)
 
-echo "Installing setuptools, pip, virtualenv, and Virtualenvwrapper"
-sudo apt-get install python-setuptools virtualenvwrapper
+echo "Installing setuptools, pip, and virtualenv"
+sudo apt-get install python-setuptools
+sudo pip2 install virtualenvwrapper
+sudo pip3 install virtualenvwrapper
 
 echo "CapsLock -> Ctrl"
 gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
