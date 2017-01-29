@@ -1,16 +1,12 @@
-# Set shell to ZSH
-echo "Enter password to set shell to zsh"
-chsh -s $(which zsh)
-
 # Install core packages
-sudo apt-get install xclip git tmux skype quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag
+sudo apt-get install xclip git tmux skype quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop
 sudo apt-get install ubuntu-restricted-extras
 sudo apt install unity-tweak-tool
 sudo apt-get remove dell-super-key  # this package is dumb...
 
-# Manually do...
-# Install NeoVim (https://github.com/neovim/neovim/wiki/Installing-Neovim)
-# Install hub (https://github.com/github/hub)
+# Set shell to ZSH
+echo "Enter password to set shell to zsh"
+chsh -s $(which zsh)
 
 echo "Installing setuptools, pip, virtualenv, and Virtualenvwrapper"
 sudo apt-get install python-setuptools virtualenvwrapper
@@ -26,4 +22,6 @@ echo 1 | sudo update-alternatives --config vi
 echo 1 | sudo update-alternatives --config vim
 echo 1 | sudo update-alternatives --config editor
 
-sudo apt-get install nautilus-dropbox
+# Manually do...
+# Install NeoVim (https://github.com/neovim/neovim/wiki/Installing-Neovim)
+# Install hub (https://github.com/github/hub)
