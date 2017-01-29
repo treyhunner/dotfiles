@@ -15,6 +15,9 @@ sudo apt-get remove dell-super-key  # this package is dumb...
 echo "Installing setuptools, pip, virtualenv, and Virtualenvwrapper"
 sudo apt-get install python-setuptools virtualenvwrapper
 
+echo "CapsLock -> Ctrl"
+gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
+
 echo "Setting NeoVim as the default editor"
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
@@ -22,3 +25,5 @@ sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 echo 1 | sudo update-alternatives --config vi
 echo 1 | sudo update-alternatives --config vim
 echo 1 | sudo update-alternatives --config editor
+
+sudo apt-get install nautilus-dropbox
