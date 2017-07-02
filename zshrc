@@ -79,3 +79,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 # Use local node_modules versions of packages
 export PATH="./node_modules/.bin:$PATH"
 [[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
+
+# Set directory colors for solarized light
+eval `dircolors ~/.dotfiles/dircolors.ansi-light`
