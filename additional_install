@@ -29,3 +29,6 @@ echo 0 | sudo update-alternatives --config editor
 # Manually do...
 # Install NeoVim (https://github.com/neovim/neovim/wiki/Installing-Neovim)
 # Install hub (https://github.com/github/hub)
+# rmdir ~/Documents && ln -s ~/Dropbox/Documents ~/Documents
+# rmdir ~/Pictures && ln -s ~/Dropbox/Pictures ~/Pictures
+# ln -s ~/Dropbox/dotfiles/bin/ ~/bin
