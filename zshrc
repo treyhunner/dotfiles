@@ -46,13 +46,13 @@ if which virtualenvwrapper.sh &> /dev/null ; then
     #pyenv virtualenvwrapper
 fi
 
-function mkvenv() {
-    mkvirtualenv --python=$(which python3.5) $1
+function mkvenv3() {
+    mkvirtualenv --python=$(which python3.6) $1
     setvirtualenvproject $VIRTUAL_ENV $(pwd)
 }
 
 function mkvenv2() {
-    mkvirtualenv $1
+    mkvirtualenv --python=$(which python2.7) $1
     setvirtualenvproject $VIRTUAL_ENV $(pwd)
 }
 
