@@ -4,6 +4,7 @@ sudo apt-get install xclip git tmux quassel-client shutter gimp curl python-pip 
 sudo apt-get install ubuntu-restricted-extras
 sudo apt install unity-tweak-tool
 sudo apt-get remove dell-super-key  # this package is dumb...
+sudo apt-get install nodejs npm
 
 # Set shell to ZSH
 echo "Enter password to set shell to zsh"
