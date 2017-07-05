@@ -1,8 +1,10 @@
 # Install core packages
-sudo apt-get install xclip git tmux skype quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop
+sudo apt-get install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended
+
 sudo apt-get install ubuntu-restricted-extras
 sudo apt install unity-tweak-tool
 sudo apt-get remove dell-super-key  # this package is dumb...
+sudo apt-get install nodejs npm
 
 # Set shell to ZSH
 echo "Enter password to set shell to zsh"
@@ -20,10 +22,13 @@ echo "Setting NeoVim as the default editor"
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
-echo 1 | sudo update-alternatives --config vi
-echo 1 | sudo update-alternatives --config vim
-echo 1 | sudo update-alternatives --config editor
+echo 0 | sudo update-alternatives --config vi
+echo 0 | sudo update-alternatives --config vim
+echo 0 | sudo update-alternatives --config editor
 
 # Manually do...
 # Install NeoVim (https://github.com/neovim/neovim/wiki/Installing-Neovim)
 # Install hub (https://github.com/github/hub)
+# rmdir ~/Documents && ln -s ~/Dropbox/Documents ~/Documents
+# rmdir ~/Pictures && ln -s ~/Dropbox/Pictures ~/Pictures
+# ln -s ~/Dropbox/dotfiles/bin/ ~/bin

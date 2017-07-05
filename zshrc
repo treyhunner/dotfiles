@@ -46,13 +46,13 @@ if which virtualenvwrapper.sh &> /dev/null ; then
     #pyenv virtualenvwrapper
 fi
 
-function mkvenv() {
-    mkvirtualenv --python=$(which python3.5) $1
+function mkvenv3() {
+    mkvirtualenv --python=$(which python3.6) $1
     setvirtualenvproject $VIRTUAL_ENV $(pwd)
 }
 
 function mkvenv2() {
-    mkvirtualenv $1
+    mkvirtualenv --python=$(which python2.7) $1
     setvirtualenvproject $VIRTUAL_ENV $(pwd)
 }
 
@@ -79,3 +79,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 # Use local node_modules versions of packages
 export PATH="./node_modules/.bin:$PATH"
 [[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
+
+# Set directory colors for solarized light
+eval `dircolors ~/.dotfiles/dircolors.ansi-light`
