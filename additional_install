@@ -1,5 +1,5 @@
 # Install core packages
-sudo apt-get install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended
+sudo apt-get install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 
 sudo apt-get install ubuntu-restricted-extras
 sudo apt install unity-tweak-tool
