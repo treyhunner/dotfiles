@@ -9,6 +9,8 @@ sudo chmod 600 /etc/NetworkManager/system-connections/*
 
 # Restore SSH keys
 cp "$1/ssh"/* ~/.ssh/
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/*
 
 # Restore Compiz Settings
 python $BASEDIR/ccsm import "$1/compiz.profile"
