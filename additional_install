@@ -1,5 +1,5 @@
 # Install core packages
-sudo apt-get install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+sudo apt-get install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended compizconfig-settings-manager
 
 sudo apt-get install ubuntu-restricted-extras
 sudo apt install unity-tweak-tool
@@ -29,6 +29,3 @@ echo 0 | sudo update-alternatives --config editor
 # Manually do...
 # Install NeoVim (https://github.com/neovim/neovim/wiki/Installing-Neovim)
 # Install hub (https://github.com/github/hub)
-# rmdir ~/Documents && ln -s ~/Dropbox/Documents ~/Documents
-# rmdir ~/Pictures && ln -s ~/Dropbox/Pictures ~/Pictures
-# ln -s ~/Dropbox/dotfiles/bin/ ~/bin

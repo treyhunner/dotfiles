@@ -1,0 +1,5 @@
+# Make sure Dropbox is installed first
+
+rmdir ~/Documents && ln -s ~/Dropbox/Documents ~/Documents
+rmdir ~/Pictures && ln -s ~/Dropbox/Pictures ~/Pictures
+ln -s ~/Dropbox/dotfiles/bin/ ~/bin
