@@ -10,4 +10,4 @@ context = compizconfig.Context()
 if command == "export":
     context.Export(filename, skipDefaults=True)
 elif command == "import":
-    context.Import(filename, skipDefaults=False)
+    context.Import(filename, False)
