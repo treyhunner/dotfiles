@@ -18,13 +18,13 @@ sudo pip3 install virtualenvwrapper
 echo "CapsLock -> Ctrl"
 gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
 
-echo "Setting NeoVim as the default editor"
-sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
-echo 0 | sudo update-alternatives --config vi
-echo 0 | sudo update-alternatives --config vim
-echo 0 | sudo update-alternatives --config editor
+# echo "Setting NeoVim as the default editor"
+# sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+# sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+# sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+# echo 0 | sudo update-alternatives --config vi
+# echo 0 | sudo update-alternatives --config vim
+# echo 0 | sudo update-alternatives --config editor
 
 # Manually do...
 # Install NeoVim (https://github.com/neovim/neovim/wiki/Installing-Neovim)
