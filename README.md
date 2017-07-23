@@ -12,8 +12,15 @@ can be linked to it.
 Move this dotfiles directory to a semi-permanent home (e.g. `~/.dotfiles`) and
 execute the included `install` script:
 
-    git clone git://github.com/treyhunner/dotfiles.git ~/.dotfiles
-    ~/.dotfiles/install
+```bash
+$ git clone git://github.com/treyhunner/dotfiles.git ~/.dotfiles
+$ cd ~/.dotfiles/
+$ ./install
+$ ./additional_install
+# Setup Dropbox
+$ ./symlink  # Dependent upon Dropbox directory
+$ ./restore /media/trey/somedrive/backup
+```
 
 
 ## Copying
