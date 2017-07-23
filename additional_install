@@ -37,8 +37,13 @@ sudo gem install bundler
 sudo snap install heroku
 
 # Skype install
-wget https://go.skype.com/skypeforlinux-64.deb
-sudo dpkg -i skypeforlinux-64.deb
+curl -sL 'https://go.skype.com/skypeforlinux-64.deb' > ~/Downloads/skype.deb
+sudo dpkg --install ~/Downloads/skype.deb
+
+# Nylas N1
+curl -sL 'https://edgehill.nylas.com/download?platform=linux-deb' > ~/Downloads/nylas.deb
+sudo dpkg --install ~/Downloads/nylas.deb
+
 
 # Set shell to ZSH
 echo "Enter password to set shell to zsh"
