@@ -9,12 +9,6 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
 
-# Add local bin directory to PATH
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH:$HOME/.local/bin"
-    export PATH
-fi
-
 export PS1="%~ \$ "
 
 # If not running interactively, don't do anything
