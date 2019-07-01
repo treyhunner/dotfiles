@@ -14,7 +14,6 @@ fi
 if "$HOME/.pyenv/bin/pyenv" --version &> /dev/null ; then
     export PATH="$HOME/.pyenv/bin:$PATH"
     eval "$(pyenv init -)"
-#    eval "$(pyenv virtualenv-init -)"
 fi
 
 # Set virtualenvwrapper settings
