@@ -31,25 +31,6 @@ alias gt='cd $(git rev-parse --show-toplevel)'
 # Do not wait for full input before showing output in less
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
-# Set virtualenvwrapper settings
-if which virtualenvwrapper.sh &> /dev/null ; then
-    export WORKON_HOME=$HOME/.virtualenvs
-    export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
-    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.5
-    source $(which virtualenvwrapper.sh)
-    #pyenv virtualenvwrapper
-fi
-
-function mkvenv3() {
-    mkvirtualenv --python=$(which python3.6) $1
-    setvirtualenvproject $VIRTUAL_ENV $(pwd)
-}
-
-function mkvenv2() {
-    mkvirtualenv --python=$(which python2.7) $1
-    setvirtualenvproject $VIRTUAL_ENV $(pwd)
-}
-
 if [ "$VIRTUALENV" != "" ] ; then
     workon "$VIRTUALENV"
 fi
