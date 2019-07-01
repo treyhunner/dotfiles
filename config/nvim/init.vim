@@ -37,6 +37,7 @@ set nofixeol
 
 " Use SPACE for leader key
 let mapleader = " "
+let maplocalleader = "\\"
 
 " Use ENTER to write files, and SPACE-SPACE to clear search highlighting
 nmap <CR> :write<CR>
@@ -86,7 +87,7 @@ call plug#end()
 :nnoremap <Leader>w :Bdelete<CR>
 
 " Set Python paths
-let g:python3_host_prog = '/usr/bin/python3.5'
+let g:python3_host_prog = '/home/trey/.pyenv/shims/python3'
 let g:python_host_prog = '/usr/bin/python2.7'
 
 " Enable deoplete on startup
