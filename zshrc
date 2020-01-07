@@ -46,8 +46,9 @@ if pyenv virtualenvwrapper --version &> /dev/null ; then
     export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 fi
 
-alias mkvenv3="mkvirtualenv -a $PWD --python=$(which python3)"
-alias mkvenv2="mkvirtualenv -a $PWD --python=$(which python2)"
+alias mkvenv3='mkvirtualenv -a $PWD --python=$(which python3)'
+alias mkvenv2='mkvirtualenv -a $PWD --python=$(which python2)'
+alias mtest='docker-compose exec test pytest'
 
 if [ "$VIRTUAL_ENV" != "" ]; then
     . "$VIRTUAL_ENV/bin/activate"

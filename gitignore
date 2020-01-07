@@ -4,3 +4,4 @@
 \#*\#
 .ropeproject
 .cache
+.*@neomake*

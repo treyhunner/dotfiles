@@ -71,17 +71,17 @@ call plug#begin('~/.config/nvim/plugged')
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'zchee/deoplete-jedi'
 Plug 'neomake/neomake', { 'on': 'Neomake' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'danro/rename.vim'
-Plug 'moll/vim-bbye'
-Plug 'Rykka/riv.vim'
+Plug 'tpope/vim-eunuch'
+Plug 'Carpetsmoker/auto_mkdir2.vim'
+" Plug 'Rykka/riv.vim'
 call plug#end()
 
 :nnoremap <Leader>w :Bdelete<CR>
@@ -91,7 +91,8 @@ let g:python3_host_prog = '/home/trey/.pyenv/shims/python3'
 let g:python_host_prog = '/usr/bin/python2.7'
 
 " Enable deoplete on startup
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#sources#jedi#python_path = 'python3'
 
 " Configure CtrlP plugin
 let g:ctrlp_map = '<Leader>t'
@@ -139,3 +140,25 @@ function! ToggleHiddenAll()
     endif
 endfunction
 nnoremap <S-h> :call ToggleHiddenAll()<CR>:<Backspace>
+
+
+let s:fancy_features = 1
+function! ToggleFancyFeatures()
+    if s:fancy_features == 1
+        let s:hidden_all = 0
+        call deoplete#disable()
+        set nonumber
+        NeomakeDisable
+    else
+        let s:hidden_all = 1
+        call deoplete#enable()
+        set number
+        NeomakeEnable
+    endif
+endfunction
+
+augroup nvim_term
+  au!
+  au TermOpen * startinsert
+  au TermClose * stopinsert
+augroup END
