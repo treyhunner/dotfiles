@@ -27,6 +27,9 @@ done
 
 
 # Install Gnome Terminal configuration
-PROFILE=$(dconf dump /org/gnome/terminal/legacy/profiles:/ | grep -e "\[\:\|visible-name" | sed 's/\[\(.*\)\]/\1/')
-dconf dump "/org/gnome/terminal/legacy/profiles:/$PROFILE/" > "$backup_dir/gnome-terminal.dconf"
-dconf load "/org/gnome/terminal/legacy/profiles:/$PROFILE/" < gnome-terminal.dconf
+dconf dump "/org/gnome/terminal/" > "$backup_dir/gnome-terminal.dconf"
+dconf load "/org/gnome/terminal/" < gnome-terminal.dconf
+
+# Install other Gnome settings
+dconf dump "/" < gnome-settings.dconf
+dconf load "/" > "$backup_dir/gnome-settings.dconf"

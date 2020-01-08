@@ -1,5 +1,5 @@
 # Install core packages
-sudo apt-get -y install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended compizconfig-settings-manager ubuntu-restricted-extras
+sudo apt-get -y install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended compizconfig-settings-manager ubuntu-restricted-extras chrome-gnome-shell gnome-tweaks
 
 sudo apt-get -y remove dell-super-key  # this package is dumb...
 
