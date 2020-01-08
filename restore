@@ -7,10 +7,10 @@ sudo cp "$1/wifi-networks"/* /etc/NetworkManager/system-connections/
 sudo chown root.root /etc/NetworkManager/system-connections/*
 sudo chmod 600 /etc/NetworkManager/system-connections/*
 
-# Restore SSH keys
-cp "$1/ssh"/* ~/.ssh/
-chmod 700 ~/.ssh
-chmod 600 ~/.ssh/*
+## Restore SSH keys (I now make new keys/configs on new machines)
+# cp "$1/ssh"/* ~/.ssh/
+# chmod 700 ~/.ssh
+# chmod 600 ~/.ssh/*
 
 # Restore Compiz Settings
 python $BASEDIR/ccsm import "$1/compiz.profile"

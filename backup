@@ -5,7 +5,7 @@ BASEDIR=$(dirname $0)
 mkdir -p "$1"
 
 # Backup package information
-mkdir "$1/apt/"
+mkdir -p "$1/apt/"
 dpkg --get-selections > "$1/apt/package.list"
 sudo cp -R /etc/apt/sources.list* "$1/apt/"
 sudo apt-key exportall > "$1/apt/repo.keys"
@@ -14,9 +14,9 @@ sudo apt-key exportall > "$1/apt/repo.keys"
 mkdir "$1/wifi-networks/"
 sudo cp /etc/NetworkManager/system-connections/* "$1/wifi-networks/"
 
-# Backup SSH keys
-mkdir "$1/ssh/"
-cp ~/.ssh/* "$1/ssh/"
+## Backup SSH keys (commented because my SSH config isn't useful anymore)
+# mkdir "$1/ssh/"
+# cp ~/.ssh/* "$1/ssh/"
 
 # Backup Compiz Settings
 python $BASEDIR/ccsm export "$1/compiz.profile"
