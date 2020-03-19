@@ -119,6 +119,8 @@ endtry
 
 " Run Neomake for buffer opens/writes
 autocmd! BufWritePost,BufEnter * Neomake
+" call neomake#configure#automake('nrw', 50)
+let g:neomake_python_enabled_makers = ['flake8', 'pylint']
 
 " Toggle hiding of decorations on Shift-H
 let s:hidden_all = 0
