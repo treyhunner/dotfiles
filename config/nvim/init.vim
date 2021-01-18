@@ -87,8 +87,8 @@ call plug#end()
 :nnoremap <Leader>w :Bdelete<CR>
 
 " Set Python paths
+let g:python_host_prog = '/home/trey/.pyenv/shims/python3'
 let g:python3_host_prog = '/home/trey/.pyenv/shims/python3'
-let g:python_host_prog = '/usr/bin/python2.7'
 
 " Enable deoplete on startup
 " let g:deoplete#enable_at_startup = 1
