@@ -31,5 +31,5 @@ dconf dump "/org/gnome/terminal/" > "$backup_dir/gnome-terminal.dconf"
 dconf load "/org/gnome/terminal/" < gnome-terminal.dconf
 
 # Install other Gnome settings
-dconf dump "/" < gnome-settings.dconf
-dconf load "/" > "$backup_dir/gnome-settings.dconf"
+dconf dump "/" > "$backup_dir/gnome-settings.dconf"
+dconf load "/" < gnome-settings.dconf
