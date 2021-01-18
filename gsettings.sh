@@ -14,8 +14,6 @@ gsettings set org.gnome.desktop.interface icon-theme 'ubuntu-mono-light'
 gsettings set org.gnome.desktop.background secondary-color '#000000'
 gsettings set org.gnome.desktop.background primary-color '#000000'
 gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/TCP118v1_by_Tiziano_Consonni.jpg'
-gsettings set com.canonical.Unity integrated-menus false
-gsettings set com.canonical.Unity always-show-menus true
 
 # Brightness & Lock
 gsettings set org.gnome.desktop.session idle-delay uint32 600
