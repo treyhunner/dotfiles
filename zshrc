@@ -40,7 +40,6 @@ fi
 # Set virtualenvwrapper settings
 if pyenv virtualenvwrapper --version &> /dev/null ; then
     export WORKON_HOME=$HOME/.virtualenvs
-    export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
     export VIRTUALENVWRAPPER_PYTHON=$(which python2.7)
     pyenv virtualenvwrapper_lazy
     export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"

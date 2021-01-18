@@ -13,4 +13,4 @@ sudo chmod 600 /etc/NetworkManager/system-connections/*
 # chmod 600 ~/.ssh/*
 
 # Restore Compiz Settings
-python $BASEDIR/ccsm import "$1/compiz.profile"
+python2 $BASEDIR/ccsm import "$1/compiz.profile"

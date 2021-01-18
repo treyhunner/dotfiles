@@ -1,6 +1,9 @@
 # Install core packages
 sudo apt-get -y install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended compizconfig-settings-manager ubuntu-restricted-extras chrome-gnome-shell gnome-tweaks
 
+# Dependencies for pyenv installations
+sudo apt-get install -y libssl-dev tk-dev zlib1g-dev libbz2-dev python-openssl llvm libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev xz-utils liblzma-dev libbz2-dev
+
 sudo apt-get -y remove dell-super-key  # this package is dumb...
 
 echo "Installing setuptools, pip, and virtualenv"
@@ -14,7 +17,7 @@ gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier'
 
 # Add extra sources
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
-sudo add-apt-repository ppa:fkrull/deadsnakes -y
+sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo add-apt-repository ppa:brightbox/ruby-ng -y
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get update
@@ -31,8 +34,29 @@ sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 # Ruby setup
 sudo gem install bundler
 
+# Install Docker and Docker Compose
+sudo apt install gnupg-agent
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io
+sudo apt install -y docker-compose
+sudo usermod -aG docker $USER  # Add my user to the docker group
+
 # Heroku
-sudo snap install heroku
+sudo snap install heroku --classic
+
+# Slack
+sudo snap install slack --classic
+
+# Spotify
+sudo snap install spotify
+
+# Authy
+sudo snap install authy --beta
 
 # Skype install
 curl -sL 'https://go.skype.com/skypeforlinux-64.deb' > ~/Downloads/skype.deb
