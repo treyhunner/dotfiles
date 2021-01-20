@@ -47,6 +47,7 @@ fi
 
 alias mkvenv3='mkvirtualenv -a $PWD --python=$(which python3)'
 alias mkvenv2='mkvirtualenv -a $PWD --python=$(which python2)'
+alias mshell='docker-compose exec django python manage.py shell'
 alias mtest='docker-compose exec test pytest'
 
 if [ "$VIRTUAL_ENV" != "" ]; then
