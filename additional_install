@@ -16,7 +16,7 @@ echo "CapsLock -> Ctrl"
 gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
 
 # Add extra sources
-sudo add-apt-repository ppa:neovim-ppa/unstable -y
+sudo add-apt-repository ppa:neovim-ppa/stable -y
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo add-apt-repository ppa:brightbox/ruby-ng -y
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
