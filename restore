@@ -7,6 +7,10 @@ sudo cp "$1/wifi-networks"/* /etc/NetworkManager/system-connections/
 sudo chown root.root /etc/NetworkManager/system-connections/*
 sudo chmod 600 /etc/NetworkManager/system-connections/*
 
+# Restore OBS configuration
+mkdir -p ~/.config/obs-studio/
+sudo cp "$1/obs-studio"/* ~/.config/obs-studio/
+
 ## Restore SSH keys (I now make new keys/configs on new machines)
 # cp "$1/ssh"/* ~/.ssh/
 # chmod 700 ~/.ssh

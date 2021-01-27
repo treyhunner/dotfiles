@@ -14,6 +14,10 @@ sudo apt-key exportall > "$1/apt/repo.keys"
 mkdir "$1/wifi-networks/"
 sudo cp /etc/NetworkManager/system-connections/* "$1/wifi-networks/"
 
+# Backup OBS configuration
+mkdir "$1/obs-studio/"
+sudo cp ~/.config/obs-studio/* "$1/obs-studio/"
+
 ## Backup SSH keys (commented because my SSH config isn't useful anymore)
 # mkdir "$1/ssh/"
 # cp ~/.ssh/* "$1/ssh/"
