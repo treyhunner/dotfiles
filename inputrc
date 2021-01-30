@@ -1,0 +1,1 @@
+"\e\C-M": abort     Stop Esc Enter from entering vi mode in Python REPL
