@@ -1,5 +1,5 @@
 # Install core packages
-sudo apt-get -y install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended compizconfig-settings-manager ubuntu-restricted-extras chrome-gnome-shell gnome-tweaks obs-studio
+sudo apt-get -y install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended compizconfig-settings-manager ubuntu-restricted-extras chrome-gnome-shell gnome-tweaks obs-studio firefox
 
 # Dependencies for pyenv installations
 sudo apt-get install -y libssl-dev tk-dev zlib1g-dev libbz2-dev python-openssl llvm libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev xz-utils liblzma-dev libbz2-dev
