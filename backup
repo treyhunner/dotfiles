@@ -23,4 +23,4 @@ sudo cp ~/.config/obs-studio/* "$1/obs-studio/"
 # cp ~/.ssh/* "$1/ssh/"
 
 # Backup Compiz Settings
-python $BASEDIR/ccsm export "$1/compiz.profile"
+$BASEDIR/ccsm export "$1/compiz.profile"
