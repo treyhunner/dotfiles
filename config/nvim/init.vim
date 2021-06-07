@@ -143,17 +143,24 @@ function! ToggleHiddenAll()
 endfunction
 nnoremap <S-h> :call ToggleHiddenAll()<CR>:<Backspace>
 
+function! SuperHide()
+    set nonumber
+    highlight EndOfBuffer ctermfg=white ctermbg=white
+endfunction
+
 
 let s:fancy_features = 1
 function! ToggleFancyFeatures()
     if s:fancy_features == 1
         let s:hidden_all = 0
-        call deoplete#disable()
+"        call deoplete#disable()
         set nonumber
         NeomakeDisable
+        NeomakeCancelJobs
+        NeomakeClean
     else
         let s:hidden_all = 1
-        call deoplete#enable()
+"        call deoplete#enable()
         set number
         NeomakeEnable
     endif
@@ -164,3 +171,8 @@ augroup nvim_term
   au TermOpen * startinsert
   au TermClose * stopinsert
 augroup END
+
+augroup cmdline
+    autocmd!
+    autocmd CmdlineLeave : echo ''
+augroup end
