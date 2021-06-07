@@ -73,7 +73,7 @@ function! DoRemote(arg)
 endfunction
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'zchee/deoplete-jedi'
-Plug 'neomake/neomake', { 'on': 'Neomake' }
+Plug 'dense-analysis/ale'  " Asynchronous linting
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tpope/vim-fugitive'
@@ -117,10 +117,11 @@ catch
   silent! colorscheme desert
 endtry
 
-" Run Neomake for buffer opens/writes
-autocmd! BufWritePost,BufEnter * Neomake
-" call neomake#configure#automake('nrw', 50)
-let g:neomake_python_enabled_makers = ['flake8', 'pylint']
+" Check Python files with flake8 and pylint.
+let g:ale_linters = {'python': ['flake8', 'pylint']}
+" Fix Python files with black
+let g:ale_fixers = {'python': ['black']}
+let g:ale_fix_on_save = 1
 
 " Toggle hiding of decorations on Shift-H
 let s:hidden_all = 0
@@ -138,7 +139,6 @@ function! ToggleHiddenAll()
         set laststatus=2
         set showcmd
         set showtabline=1
-        Neomake
     endif
 endfunction
 nnoremap <S-h> :call ToggleHiddenAll()<CR>:<Backspace>
@@ -155,14 +155,15 @@ function! ToggleFancyFeatures()
         let s:hidden_all = 0
 "        call deoplete#disable()
         set nonumber
-        NeomakeDisable
-        NeomakeCancelJobs
-        NeomakeClean
+        ALEReset
+        let g:ale_enabled = 0
+        let g:ale_fix_on_save = 0
     else
         let s:hidden_all = 1
 "        call deoplete#enable()
         set number
-        NeomakeEnable
+        let g:ale_enabled = 1
+        let g:ale_fix_on_save = 1
     endif
 endfunction
 
