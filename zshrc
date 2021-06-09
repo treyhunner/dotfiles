@@ -45,6 +45,9 @@ if pyenv virtualenvwrapper --version &> /dev/null ; then
     export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 fi
 
+# Setup python-launcher to use pyenv default version
+export PY_PYTHON=$(head --lines 1 ~/.python-version | cut --delimiter=. --fields=1,2)
+
 alias mkvenv3='mkvirtualenv -a $PWD --python=$(which python3)'
 alias mkvenv2='mkvirtualenv -a $PWD --python=$(which python2)'
 alias mshell='docker-compose exec django python manage.py shell'
