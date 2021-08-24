@@ -32,8 +32,7 @@ alias gt='cd $(git rev-parse --show-toplevel)'
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 # Setup pyenv
-if "$HOME/.pyenv/bin/pyenv" --version &> /dev/null ; then
-    export PATH="$HOME/.pyenv/bin:$PATH"
+if "$PYENV_ROOT/bin/pyenv" --version &> /dev/null ; then
     eval "$(pyenv init -)"
 fi
 
