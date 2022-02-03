@@ -56,6 +56,7 @@ function mmanage(){ docker-compose exec django python manage.py "$@" }
 function mrun(){ cat "$@" | docker exec -i $(docker-compose ps -q django) python manage.py shell }
 alias mtest='docker-compose exec test pytest'
 alias web='python -m webbrowser'
+alias cvim='vim -c "call ToggleFancyFeatures()"'
 
 if [ "$VIRTUAL_ENV" != "" ]; then
     . "$VIRTUAL_ENV/bin/activate"
