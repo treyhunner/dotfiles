@@ -45,7 +45,7 @@ if pyenv virtualenvwrapper --version &> /dev/null ; then
 fi
 
 # Setup python-launcher to use pyenv default version
-export PY_PYTHON=$(head -n 1 ~/.pyenv/version | cut -d "." -f 1,2)
+export PY_PYTHON=$(head -n 1 $(pyenv root)/version | cut -d "." -f 1,2)
 
 eval "$(register-python-argcomplete pipx)"  # pipx completions
 
