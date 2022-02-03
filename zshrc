@@ -48,6 +48,7 @@ fi
 
 # Setup python-launcher to use pyenv default version
 export PY_PYTHON=$(head -n 1 $(pyenv root)/version | cut -d "." -f 1,2)
+[[ -s "$HOME/.startup.py" ]] && export PYTHONSTARTUP="$HOME/.startup.py"
 
 eval "$(register-python-argcomplete pipx)"  # pipx completions
 
