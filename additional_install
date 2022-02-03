@@ -13,6 +13,10 @@ curl https://pyenv.run | bash
 git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git $(pyenv root)/plugins/pyenv-virtualenvwrapper
 curl -L https://github.com/brettcannon/python-launcher/releases/download/v0.16.0/python_launcher-0.16.0-x86_64-unknown-linux-gnu.tar.xz | sudo tar --extract --xz --strip-components 1 --directory /usr/local
 
+echo "Installing pipx"
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+
 echo "CapsLock -> Ctrl"
 gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
 
