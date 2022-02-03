@@ -50,6 +50,8 @@ export PY_PYTHON=$(head -n 1 ~/.pyenv/version | cut -d "." -f 1,2)
 alias mkvenv3='mkvirtualenv -a $PWD --python=$(which python3)'
 alias mkvenv2='mkvirtualenv -a $PWD --python=$(which python2)'
 alias mshell='docker-compose exec django python manage.py shell'
+function mmanage(){ docker-compose exec django python manage.py "$@" }
+function mrun(){ cat "$@" | docker exec -i $(docker-compose ps -q django) python manage.py shell }
 alias mtest='docker-compose exec test pytest'
 alias web='python -m webbrowser'
 
