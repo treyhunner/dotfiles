@@ -5,3 +5,4 @@
 .ropeproject
 .cache
 .*@neomake*
+.~lock.*

@@ -4,13 +4,13 @@
 [core]
 	autocrlf = input
 	excludesfile = ~/.gitignore
-[push]
-	default = tracking
 [alias]
 	url = !hub browse -u -- commit/$(git rev-parse HEAD)
 	context = blame
 	permission-reset = !git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
 	unpushed = log --branches --not --remotes --no-walk --decorate --oneline
+	amend = commit --amend --no-edit
+	edit = commit --amend --only
 [hub]
 	protocol = ssh
 [url "ssh://git@heroku.com/"]
