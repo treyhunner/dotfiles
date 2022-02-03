@@ -81,7 +81,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-eunuch'
 Plug 'Carpetsmoker/auto_mkdir2.vim'
+Plug 'mechatroner/rainbow_csv'
 " Plug 'Rykka/riv.vim'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 :nnoremap <Leader>w :Bdelete<CR>
@@ -120,12 +122,33 @@ endtry
 " Check Python files with flake8 and pylint.
 let g:ale_linters = {'python': ['flake8', 'pylint']}
 " Fix Python files with black
-let g:ale_fixers = {'python': ['black']}
+let g:ale_fixers = {'python': ['black', 'autopep8']}
 let g:ale_fix_on_save = 1
+
+function! SuperHide()
+    set nonumber
+    highlight EndOfBuffer ctermfg=white ctermbg=white
+endfunction
+
+
+let s:fancy_features = 1
+function! ToggleFancyFeatures()
+    if s:fancy_features == 1
+        let s:fancy_features = 0
+        ALEReset
+        let g:ale_enabled = 0
+        let g:ale_fix_on_save = 0
+    else
+        let s:fancy_features = 1
+        let g:ale_enabled = 1
+        let g:ale_fix_on_save = 1
+    endif
+endfunction
 
 " Toggle hiding of decorations on Shift-H
 let s:hidden_all = 0
 function! ToggleHiddenAll()
+    call ToggleFancyFeatures()
     if s:hidden_all == 0
         let s:hidden_all = 1
         set noruler
@@ -142,30 +165,6 @@ function! ToggleHiddenAll()
     endif
 endfunction
 nnoremap <S-h> :call ToggleHiddenAll()<CR>:<Backspace>
-
-function! SuperHide()
-    set nonumber
-    highlight EndOfBuffer ctermfg=white ctermbg=white
-endfunction
-
-
-let s:fancy_features = 1
-function! ToggleFancyFeatures()
-    if s:fancy_features == 1
-        let s:hidden_all = 0
-"        call deoplete#disable()
-        set nonumber
-        ALEReset
-        let g:ale_enabled = 0
-        let g:ale_fix_on_save = 0
-    else
-        let s:hidden_all = 1
-"        call deoplete#enable()
-        set number
-        let g:ale_enabled = 1
-        let g:ale_fix_on_save = 1
-    endif
-endfunction
 
 augroup nvim_term
   au!
