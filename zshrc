@@ -1,6 +1,8 @@
 # Autocompletion
 fpath=(~/.zsh/completion $fpath)
 zstyle ':completion:*' completer _expand _complete _ignored _correct
+autoload -U bashcompinit
+bashcompinit
 autoload -U compinit
 compinit
 
