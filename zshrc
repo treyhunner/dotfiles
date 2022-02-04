@@ -19,8 +19,10 @@ export PS1="%~ \$ "
 # Enable color support for ls and grep
 if which dircolors &> /dev/null ; then
     eval $(dircolors -b)
-    alias ls='ls --color=auto'
+    alias ls='ls -1 --color=auto'
     alias grep='grep --color=auto'
+else
+    alias ls='ls -1'
 fi
 
 # Replace git with hub if found
@@ -59,6 +61,7 @@ function mmanage(){ docker-compose exec django python manage.py "$@" }
 function mrun(){ cat "$@" | docker exec -i $(docker-compose ps -q django) python manage.py shell }
 alias mtest='docker-compose exec test pytest'
 alias web='python -m webbrowser'
+alias open=xdg-open
 alias cvim='vim -c "call ToggleFancyFeatures()"'
 
 if [ "$VIRTUAL_ENV" != "" ]; then
