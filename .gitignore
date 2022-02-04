@@ -1,2 +1,3 @@
 config/nvim/plugged
 config/nvim/.netrwhist
+tmux/plugins
