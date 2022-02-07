@@ -1,13 +1,13 @@
 # Install core packages
-sudo apt-get -y install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk compizconfig-settings-manager ubuntu-restricted-extras chrome-gnome-shell gnome-tweaks obs-studio firefox tree
+sudo apt -y install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk compizconfig-settings-manager ubuntu-restricted-extras chrome-gnome-shell gnome-tweaks obs-studio firefox tree
 
 # Dependencies for pyenv installations
-sudo apt-get install -y libssl-dev tk-dev zlib1g-dev libbz2-dev python-openssl llvm libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev xz-utils liblzma-dev libbz2-dev
+sudo apt install -y libssl-dev tk-dev zlib1g-dev libbz2-dev python-openssl llvm libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev xz-utils liblzma-dev libbz2-dev
 
-sudo apt-get -y remove dell-super-key  # this package is dumb...
+sudo apt -y remove dell-super-key  # this package is dumb...
 
 echo "Installing setuptools, pip, virtualenv, pyenv, python-launcher"
-sudo apt-get install -y python-setuptools
+sudo apt install -y python-setuptools
 sudo pip install virtualenvwrapper
 curl https://pyenv.run | bash
 git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git $(pyenv root)/plugins/pyenv-virtualenvwrapper
@@ -27,14 +27,14 @@ gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier'
 sudo add-apt-repository ppa:neovim-ppa/stable -y
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo add-apt-repository ppa:brightbox/ruby-ng -y
-curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
-sudo apt-get update
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt update
 
 # Python3.6, Ruby, Node.js
-sudo apt-get install -y python3.6 ruby ruby-dev nodejs
+sudo apt install -y python3.6 ruby ruby-dev nodejs
 
 # NeoVim
-sudo apt-get install -y neovim
+sudo apt install -y neovim
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
