@@ -1,3 +1,7 @@
+# Allow directory stacks
+setopt AUTO_PUSHD       # Push the old directory onto a stack
+setopt PUSHD_MINUS      # Swap the directory stack ordering
+
 # Autocompletion
 fpath=(~/.zsh/completion $fpath)
 zstyle ':completion:*' completer _expand _complete _ignored _correct
