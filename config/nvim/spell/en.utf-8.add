@@ -8,6 +8,7 @@ APY
 ascii
 ASCIIbetical
 async
+ator
 awaitable
 backreference
 Batchelder
@@ -57,6 +58,7 @@ dunder
 EAFP
 eval
 falsey
+falsiness
 filesystem
 frozenset
 getattr
@@ -77,6 +79,7 @@ incrementor
 indexability
 ing
 INI
+inidentity
 inlining
 ish
 isinstance
@@ -122,10 +125,12 @@ NFD
 NFKD
 nitpicky
 NLP
+NumPy
 oct
 Ohlife
 ord
 ORM
+ouroboros
 overridable
 overwritable
 PEP8
@@ -160,6 +165,7 @@ shiftable
 sliceable
 smoosh
 smooshes
+smooshing
 snakified
 SQLite
 StackOverflow
@@ -173,7 +179,10 @@ subpackages
 subtractable
 superclasses
 Sweigart
+TODO
+TODOs
 tokenizer
+truthiness
 truthy
 un
 uncached
@@ -181,8 +190,11 @@ unescape
 unhandled
 unhashable
 unicode
+unidentity
 unindexed
 unittest
+unpackings
+unpausing
 unpicklable
 unpickled
 unpickling
