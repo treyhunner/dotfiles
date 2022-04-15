@@ -59,7 +59,7 @@ export PY_PYTHON=$(head -n 1 $(pyenv root)/version | cut -d "." -f 1,2)
 
 eval "$(register-python-argcomplete pipx)"  # pipx completions
 
-alias mkvenv3='mkvirtualenv -a $PWD --python=$(which python3)'
+alias mkvenv3='mkvirtualenv -a $PWD --python=python$PY_PYTHON'
 alias mkvenv2='mkvirtualenv -a $PWD --python=$(which python2)'
 alias mshell='docker-compose exec django python manage.py shell'
 function mmanage(){ docker-compose exec django python manage.py "$@" }
