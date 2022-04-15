@@ -1,0 +1,1 @@
+c.TerminalInteractiveShell.autosuggestions_provider = None
