@@ -14,9 +14,7 @@ git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git $(pyenv root)/plu
 curl -L https://github.com/brettcannon/python-launcher/releases/download/v0.16.0/python_launcher-0.16.0-x86_64-unknown-linux-gnu.tar.xz | sudo tar --extract --xz --strip-components 1 --directory /usr/local
 
 echo "Install h265ize for transcoding to compress screencasts"
-git clone https://github.com/FallingSnow/h265ize /tmp/h265ize
-cd /tmp/h265ize
-sudo npm install --global
+sudo npm install FallingSnow/h265ize --global
 
 echo "Install Tmux Plugin Manager"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
