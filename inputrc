@@ -1,2 +1,3 @@
+$include /etc/inputrc
 "\e\C-M": "\C-M"    Stop Esc Enter from entering vi mode in Python REPL
 "\e\177": "\177"    Stop Esc Backspace from deleting last word
