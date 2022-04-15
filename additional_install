@@ -32,11 +32,11 @@ gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier'
 sudo add-apt-repository ppa:neovim-ppa/stable -y
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo add-apt-repository ppa:brightbox/ruby-ng -y
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt update
 
-# Python3.6, Ruby, Node.js
-sudo apt install -y python3.6 ruby ruby-dev nodejs
+# Python3.9, Ruby, Node.js
+sudo apt install -y python3.9 ruby ruby-dev nodejs
 
 # NeoVim
 sudo apt install -y neovim
