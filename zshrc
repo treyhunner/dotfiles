@@ -62,9 +62,10 @@ eval "$(register-python-argcomplete pipx)"  # pipx completions
 alias mkvenv3='mkvirtualenv -a $PWD --python=python$PY_PYTHON'
 alias mkvenv2='mkvirtualenv -a $PWD --python=$(which python2)'
 alias mshell='docker-compose exec django python manage.py shell'
-function mmanage(){ docker-compose exec django python manage.py "$@" }
 function mrun(){ cat "$@" | docker exec -i $(docker-compose ps -q django) python manage.py shell }
 alias mtest='docker-compose exec test pytest'
+alias mexec='docker-compose exec django'
+alias mmanage='docker-compose exec django python manage.py'
 alias web='python -m webbrowser'
 alias open=xdg-open
 alias cvim='vim -c "call ToggleFancyFeatures()"'
