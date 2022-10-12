@@ -1,3 +1,5 @@
+base_dir=$(dirname $(dirname $(realpath $0)))
+
 # Install core packages
 sudo apt -y install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk compizconfig-settings-manager ubuntu-restricted-extras chrome-gnome-shell gnome-tweaks obs-studio firefox tree
 
@@ -24,7 +26,7 @@ python3 -m pip install --user pipx
 python3 -m pipx ensurepath
 
 echo "CapsLock -> Ctrl"
-gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
+"$base_dir/scripts/gsettings" set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
 
 # Add extra sources
 sudo add-apt-repository ppa:neovim-ppa/stable -y

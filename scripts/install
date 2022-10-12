@@ -1,10 +1,10 @@
 #!/bin/sh
 
-dir=$(dirname $(readlink -f $0))
-backup_dir="$dir.bkp.$(date --rfc-3339=ns)"
+base_dir=$(dirname $(dirname $(realpath $0)))
+backup_dir="$base_dir.bkp.$(date --rfc-3339=ns)"
 files="tmux.conf tmux config/nvim config/ptpython inputrc zprofile zshrc startup.py screenrc gitignore gitconfig editorconfig fonts pyenv/version ipython/profile_default/ipython_config.py"
 
-echo "Installing symlinks to: $dir"
+echo "Installing symlinks to: $base_dir"
 
 mkdir -p "$backup_dir"
 mkdir -p "$HOME/.pyenv"
@@ -20,7 +20,7 @@ for file_pair in $files ; do
 
     echo "Installing dotfile: $file"
     mv "$target_file" "$backup_dir/"
-    ln -s "$dir/$file" "$target_file"
+    ln -s "$base_dir/$file" "$target_file"
 done
 
 

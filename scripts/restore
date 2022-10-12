@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BASEDIR=$(dirname $0)
+base_dir=$(dirname $(dirname $(realpath $0)))
 
 # Restore WiFi networks
 sudo cp "$1/wifi-networks"/* /etc/NetworkManager/system-connections/
@@ -17,4 +17,4 @@ sudo cp "$1/obs-studio"/* ~/.config/obs-studio/
 # chmod 600 ~/.ssh/*
 
 # Restore Compiz Settings
-python2 $BASEDIR/ccsm import "$1/compiz.profile"
+python2 $base_dir/scripts/ccsm import "$1/compiz.profile"

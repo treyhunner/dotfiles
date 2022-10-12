@@ -15,11 +15,11 @@ execute the included `install` script:
 ```bash
 $ git clone git://github.com/treyhunner/dotfiles.git ~/.dotfiles
 $ cd ~/.dotfiles/
-$ ./install
-$ ./additional_install
+$ ./scripts/install
+$ ./scripts/additional_install
 # Setup Dropbox
-$ ./symlink  # Dependent upon Dropbox directory
-$ ./restore /media/trey/somedrive/backup
+$ ./scripts/symlink  # Dependent upon Dropbox directory
+$ ./scripts/restore /media/trey/somedrive/backup
 ```
 
 
