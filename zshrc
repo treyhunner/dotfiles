@@ -69,6 +69,7 @@ alias mmanage='docker-compose exec django python manage.py'
 alias web='python -m webbrowser'
 alias open=xdg-open
 alias cvim='vim -c "call ToggleFancyFeatures()"'
+alias p=ptpython
 
 if [ "$VIRTUAL_ENV" != "" ]; then
     . "$VIRTUAL_ENV/bin/activate"
