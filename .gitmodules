@@ -1,6 +1,0 @@
-[submodule "vim/bundle/ultisnips"]
-	path = vim/bundle/ultisnips
-	url = https://github.com/SirVer/ultisnips.git
-[submodule "vim/bundle/github-issues"]
-	path = vim/bundle/github-issues
-	url = https://github.com/jaxbot/github-issues.vim.git
