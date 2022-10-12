@@ -2,7 +2,7 @@
 
 dir=$(dirname $(readlink -f $0))
 backup_dir="$dir.bkp.$(date --rfc-3339=ns)"
-files="tmux.conf tmux config/nvim inputrc zprofile zshrc startup.py screenrc gitignore gitconfig editorconfig fonts pyenv/version ipython/profile_default/ipython_config.py"
+files="tmux.conf tmux config/nvim config/ptpython inputrc zprofile zshrc startup.py screenrc gitignore gitconfig editorconfig fonts pyenv/version ipython/profile_default/ipython_config.py"
 
 echo "Installing symlinks to: $dir"
 
