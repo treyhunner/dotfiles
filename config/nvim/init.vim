@@ -66,8 +66,6 @@ call plug#begin('~/.config/nvim/plugged')
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'zchee/deoplete-jedi'
 Plug 'dense-analysis/ale'  " Asynchronous linting
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'altercation/vim-colors-solarized'
@@ -75,10 +73,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-surround'
 Plug 'Carpetsmoker/auto_mkdir2.vim'
-Plug 'mechatroner/rainbow_csv'
-" Plug 'Rykka/riv.vim'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 :nnoremap <Leader>w :Bdelete<CR>
@@ -87,9 +83,10 @@ call plug#end()
 let g:python_host_prog = '/home/trey/.pyenv/shims/python3'
 let g:python3_host_prog = '/home/trey/.pyenv/shims/python3'
 
-" Enable deoplete on startup
-" let g:deoplete#enable_at_startup = 1
-" let g:deoplete#sources#jedi#python_path = 'python3'
+" Vim surround extensions
+" https://github.com/tpope/vim-surround/issues/213
+ autocmd FileType markdown let b:surround_45 = "```\n\r\n```"
+ autocmd FileType python let b:surround_45 = "\"\"\"\n\r\n\"\"\""
 
 " Configure CtrlP plugin
 let g:ctrlp_map = '<Leader>t'
@@ -133,12 +130,21 @@ function! ToggleFancyFeatures()
         ALEReset
         let g:ale_enabled = 0
         let g:ale_fix_on_save = 0
+        set textwidth=0
+        set nospell
     else
         let s:fancy_features = 1
         let g:ale_enabled = 1
         let g:ale_fix_on_save = 1
+        set textwidth=79
+        set spell
     endif
 endfunction
+
+" ENABLE WHEN TEACHING
+" let g:ale_enabled = 0
+" let g:ale_fix_on_save = 0
+" set nospell
 
 " Toggle hiding of decorations on Shift-H
 let s:hidden_all = 0
