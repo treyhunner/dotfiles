@@ -40,36 +40,32 @@ alias '$'=''  # Copy-pasting commands with '$ ' in front still works
 # Do not wait for full input before showing output in less
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
-# Setup pyenv
-if "$PYENV_ROOT/bin/pyenv" --version &> /dev/null ; then
-    eval "$(pyenv init -)"
-fi
-
-# Set virtualenvwrapper settings
-if pyenv virtualenvwrapper --version &> /dev/null ; then
-    export WORKON_HOME=$HOME/.virtualenvs
-    export VIRTUALENVWRAPPER_PYTHON=$(which python2.7)
-    pyenv virtualenvwrapper_lazy
-    export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-fi
-
 # Setup python-launcher to use pyenv default version
 export PY_PYTHON=$(head -n 1 $(pyenv root)/version | cut -d "." -f 1,2)
-[[ -s "$HOME/.startup.py" ]] && export PYTHONSTARTUP="$HOME/.startup.py"
-
-eval "$(register-python-argcomplete pipx)"  # pipx completions
 
 alias mkvenv3='mkvirtualenv -a $PWD --python=python$PY_PYTHON'
 alias mkvenv2='mkvirtualenv -a $PWD --python=$(which python2)'
-alias mshell='docker-compose exec django python manage.py shell'
-function mrun(){ cat "$@" | docker exec -i $(docker-compose ps -q django) python manage.py shell }
+alias mshell='docker-compose exec --user="$(id -u):$(id -g)" django python manage.py shell'
+function mrun(){
+    cat "$@" | docker exec --user="$(id -u):$(id -g)" -i $(docker-compose ps -q django) python manage.py shell
+}
 alias mtest='docker-compose exec test pytest'
 alias mexec='docker-compose exec django'
-alias mmanage='docker-compose exec django python manage.py'
+alias mmanage='docker-compose exec --user="$(id -u):$(id -g)" django python manage.py'
 alias web='python -m webbrowser'
 alias open=xdg-open
 alias cvim='vim -c "call ToggleFancyFeatures()"'
-alias p=ptpython
+
+# Setup python-launcher to use startup file
+alias py='PYTHONSTARTUP="$HOME/.startup.py" py'
+
+# Set virtualenvwrapper settings
+if [ -d "$HOME/.pyenv/plugins/pyenv-virtualenvwrapper" ]; then
+    export WORKON_HOME=$HOME/.virtualenvs
+    export VIRTUALENVWRAPPER_PYTHON=$HOME/.local/pipx/venvs/virtualenvwrapper/bin/python
+    source virtualenvwrapper_lazy.sh
+    #export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+fi
 
 if [ "$VIRTUAL_ENV" != "" ]; then
     . "$VIRTUAL_ENV/bin/activate"
