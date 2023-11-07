@@ -31,12 +31,11 @@ echo "CapsLock -> Ctrl"
 # Add extra sources
 sudo add-apt-repository ppa:neovim-ppa/stable -y
 sudo add-apt-repository ppa:deadsnakes/ppa -y
-sudo add-apt-repository ppa:brightbox/ruby-ng -y
 curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt update
 
-# Python3.9, Ruby, Node.js
-sudo apt install -y python3.9 ruby ruby-dev nodejs
+# Python3.9, Node.js
+sudo apt install -y python3.9 nodejs
 
 # NeoVim
 sudo apt install -y neovim
@@ -45,7 +44,13 @@ sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 
 # Ruby setup
-sudo gem install bundler
+# https://stackoverflow.com/questions/72074027/cannot-install-ruby-version-2-6-6-on-ubuntu-22-04
+gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+curl -sSL https://get.rvm.io | bash -s stable
+rvm pkg install openssl  # Ubuntu comes with a newer Open SSL
+rvm install ruby-2.7 --with-openssl-dir=$HOME/.rvm/usr
+rvm use 2.7
+gem install bundler
 
 # Install Docker and Docker Compose
 sudo apt install gnupg-agent
