@@ -15,6 +15,7 @@ set smartcase                   " Use case sensitive search when uppercase used
 set incsearch                   " Jump to search strings while typing
 set hlsearch                    " Highlight search results
 set spell                       " Enable spell checking
+set formatoptions-=t            " Don't automatically wrap text while typing
 
 " Use 4 spaces instead of a tab
 set expandtab
@@ -53,12 +54,6 @@ map <c-h> <c-w>h
 vnoremap  <leader>y  "+y
 nnoremap  <leader>Y  "+yg
 nnoremap  <leader>y  "+y
-
-" Paste from clipboard
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
 
 set pastetoggle=<F2>
 
