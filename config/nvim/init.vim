@@ -112,10 +112,12 @@ catch
 endtry
 
 " Check Python files with flake8 and pylint.
-let g:ale_linters = {'python': ['flake8', 'pylint']}
+let g:ale_linters = {'python': ['ruff']}
 " Fix Python files with black
-let g:ale_fixers = {'python': ['black', 'autopep8']}
+let g:ale_fixers = {'python': ['ruff', 'black', 'autopep8']}
 let g:ale_fix_on_save = 1
+let g:ale_set_highlights = 0
+let g:ale_virtualtext_cursor = 0
 
 function! SuperHide()
     set nonumber
