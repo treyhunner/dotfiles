@@ -60,7 +60,7 @@ alias cvim='vim -c "call ToggleFancyFeatures()"'
 alias py='PYTHONSTARTUP="$HOME/.startup.py" py'
 
 # Set virtualenvwrapper settings
-if [ -d "$HOME/.pyenv/plugins/pyenv-virtualenvwrapper" ]; then
+if [ -d "$HOME/.virtualenvs" ]; then
     export WORKON_HOME=$HOME/.virtualenvs
     export VIRTUALENVWRAPPER_PYTHON=$HOME/.local/pipx/venvs/virtualenvwrapper/bin/python
     source virtualenvwrapper_lazy.sh
