@@ -1,19 +1,33 @@
 base_dir=$(dirname $(dirname $(realpath $0)))
 
 # Install core packages
-sudo apt -y install xclip git tmux quassel-client shutter gimp curl python-pip python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk compizconfig-settings-manager ubuntu-restricted-extras chrome-gnome-shell gnome-tweaks obs-studio firefox tree
+sudo apt -y install xclip git tmux quassel-client shutter gimp curl python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk compizconfig-settings-manager ubuntu-restricted-extras chrome-gnome-shell gnome-tweaks obs-studio firefox tree nodejs npm flatpak gnome-software-plugin-flatpak
+
+# Add NeoVim repository
+sudo add-apt-repository ppa:neovim-ppa/stable -y
+
+# Add NodeSource
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl gnupg
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+sudo apt update
+NODE_MAJOR=20
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+
+# Node.js
+sudo apt install -y nodejs
 
 # Dependencies for pyenv installations
-sudo apt install -y libssl-dev tk-dev zlib1g-dev libbz2-dev python-openssl llvm libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev xz-utils liblzma-dev libbz2-dev
+sudo apt install -y libssl-dev tk-dev zlib1g-dev libbz2-dev python3-openssl llvm libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev xz-utils liblzma-dev libbz2-dev
 
-sudo apt -y remove dell-super-key  # this package is dumb...
+# No longer needed on Lenovo laptop
+# sudo apt -y remove dell-super-key  # this package is dumb...
 
-echo "Installing setuptools, pip, virtualenv, pyenv, python-launcher"
+echo "Installing setuptools, pip, pyenv, python-launcher"
 sudo apt install -y python-setuptools
-sudo pip install virtualenvwrapper
 curl https://pyenv.run | bash
-git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git $(pyenv root)/plugins/pyenv-virtualenvwrapper
-curl -L https://github.com/brettcannon/python-launcher/releases/download/v0.16.0/python_launcher-0.16.0-x86_64-unknown-linux-gnu.tar.xz | sudo tar --extract --xz --strip-components 1 --directory /usr/local
+curl -L https://github.com/brettcannon/python-launcher/releases/download/v1.0.0/python_launcher-1.0.0-x86_64-unknown-linux-gnu.tar.xz | sudo tar --extract --xz --strip-components 1 --directory /usr/local
 
 echo "Install h265ize for transcoding to compress screencasts"
 sudo npm install FallingSnow/h265ize --global
@@ -22,20 +36,13 @@ echo "Install Tmux Plugin Manager"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo "Installing pipx"
-python3 -m pip install --user pipx
-python3 -m pipx ensurepath
+sudo apt install pipx
+
+pipx install virtualenvwrapper
+mkdir ~/.virtualenvs
 
 echo "CapsLock -> Ctrl"
 "$base_dir/scripts/gsettings" set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
-
-# Add extra sources
-sudo add-apt-repository ppa:neovim-ppa/stable -y
-sudo add-apt-repository ppa:deadsnakes/ppa -y
-curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-sudo apt update
-
-# Python3.9, Node.js
-sudo apt install -y python3.9 nodejs
 
 # NeoVim
 sudo apt install -y neovim
@@ -45,22 +52,27 @@ sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 
 # Ruby setup
 # https://stackoverflow.com/questions/72074027/cannot-install-ruby-version-2-6-6-on-ubuntu-22-04
-gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+command curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
 curl -sSL https://get.rvm.io | bash -s stable
 rvm pkg install openssl  # Ubuntu comes with a newer Open SSL
 rvm install ruby-2.7 --with-openssl-dir=$HOME/.rvm/usr
 rvm use 2.7
-gem install bundler
 
-# Install Docker and Docker Compose
-sudo apt install gnupg-agent
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo apt install -y docker-compose
 sudo usermod -aG docker $USER  # Add my user to the docker group
 
@@ -73,8 +85,8 @@ sudo snap install slack --classic
 # Spotify
 sudo snap install spotify
 
-# Authy
-sudo snap install authy --beta
+# Add FlatHub to flatpak repos
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Skype install
 curl -sL 'https://go.skype.com/skypeforlinux-64.deb' > ~/Downloads/skype.deb
