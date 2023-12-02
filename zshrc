@@ -37,6 +37,10 @@ fi
 alias gt='cd $(git rev-parse --show-toplevel)'
 alias '$'=''  # Copy-pasting commands with '$ ' in front still works
 
+# copy & paste commands
+alias "copy=xclip -sel clipboard"
+alias "paste=xclip -o"
+
 # Do not wait for full input before showing output in less
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
