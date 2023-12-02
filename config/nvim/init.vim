@@ -114,7 +114,7 @@ endtry
 " Check Python files with flake8 and pylint.
 let g:ale_linters = {'python': ['ruff']}
 " Fix Python files with black
-let g:ale_fixers = {'python': ['ruff', 'ruff_format', 'autopep8']}
+let g:ale_fixers = {'python': ['ruff', 'ruff_format', 'black', 'autopep8']}
 let g:ale_fix_on_save = 1
 let g:ale_set_highlights = 0
 let g:ale_virtualtext_cursor = 0

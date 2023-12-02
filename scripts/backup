@@ -17,7 +17,7 @@ sudo cp /etc/NetworkManager/system-connections/* "$1/wifi-networks/"
 
 # Backup OBS configuration
 mkdir "$1/obs-studio/"
-sudo cp ~/.config/obs-studio/* "$1/obs-studio/"
+sudo cp -r ~/.config/obs-studio/* "$1/obs-studio/"
 
 ## Backup SSH keys (commented because my SSH config isn't useful anymore)
 # mkdir "$1/ssh/"
