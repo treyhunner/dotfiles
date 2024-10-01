@@ -102,3 +102,19 @@ export PATH="./node_modules/.bin:$PATH"
 
 # Set directory colors for solarized light
 eval `dircolors ~/.dotfiles/dircolors.ansi-light`
+
+# Setup direnv
+eval "$(direnv hook zsh)"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+setopt PROMPT_SUBST
+
+# Add direnv-activated venv to prompt
+show_virtual_env() {
+  if [[ -n "$VIRTUAL_ENV_PROMPT" && -n "$DIRENV_DIR" ]]; then
+    echo "($(basename $VIRTUAL_ENV_PROMPT)) "
+  fi
+}
+PS1='$(show_virtual_env)'$PS1
+
+export DIRENV_LOG_FORMAT=
