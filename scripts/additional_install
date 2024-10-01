@@ -1,10 +1,7 @@
 base_dir=$(dirname $(dirname $(realpath $0)))
 
 # Install core packages
-sudo apt -y install xclip git tmux quassel-client shutter gimp curl python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk compizconfig-settings-manager ubuntu-restricted-extras chrome-gnome-shell gnome-tweaks obs-studio firefox tree nodejs npm flatpak gnome-software-plugin-flatpak
-
-# Add NeoVim repository
-sudo add-apt-repository ppa:neovim-ppa/stable -y
+sudo apt -y install xclip git tmux quassel-client shutter gimp curl python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk compizconfig-settings-manager ubuntu-restricted-extras chrome-gnome-shell gnome-tweaks obs-studio firefox tree nodejs npm flatpak gnome-software-plugin-flatpak p7zip-full
 
 # Add NodeSource
 sudo apt-get update
@@ -20,6 +17,9 @@ sudo apt install -y nodejs
 
 # Dependencies for pyenv installations
 sudo apt install -y libssl-dev tk-dev zlib1g-dev libbz2-dev python3-openssl llvm libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev xz-utils liblzma-dev libbz2-dev
+
+# Additional Python dependencies
+sudo apt install libxml2-dev libxslt-dev
 
 # No longer needed on Lenovo laptop
 # sudo apt -y remove dell-super-key  # this package is dumb...
@@ -44,11 +44,10 @@ mkdir ~/.virtualenvs
 echo "CapsLock -> Ctrl"
 "$base_dir/scripts/gsettings" set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
 
-# NeoVim
-sudo apt install -y neovim
-sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+# Use local NeoVim
+sudo update-alternatives --install /usr/bin/vi vi /home/trey/bin/nvim 60
+sudo update-alternatives --install /usr/bin/vim vim /home/trey/bin/nvim 60
+sudo update-alternatives --install /usr/bin/editor editor /home/trey/bin/nvim 60
 
 # Ruby setup
 # https://stackoverflow.com/questions/72074027/cannot-install-ruby-version-2-6-6-on-ubuntu-22-04
@@ -102,3 +101,13 @@ sudo apt install -y signal-desktop
 # Set shell to ZSH
 echo "Enter password to set shell to zsh"
 chsh -s $(which zsh)
+
+# Video recording & processing
+sudo apt install ffmpeg
+pipx install pm-process-video pm-vtt2txt
+
+# Hardware video encoding?
+sudo apt install intel-media-va-driver-non-free
+
+# Is this necessary?
+sudo adduser trey video
