@@ -63,21 +63,14 @@ alias cvim='vim -c "call ToggleFancyFeatures()"'
 # Setup python-launcher to use startup file
 alias py='PYTHONSTARTUP="$HOME/.startup.py" py'
 
-# Set virtualenvwrapper settings
-if [ -d "$HOME/.virtualenvs" ]; then
+# Use virtualenvwrapper only for tmux sessions that set VIRTUALENV env variable
+if [[ -d "$HOME/.virtualenvs" && "$VIRTUALENV" != "" ]]; then
     export WORKON_HOME=$HOME/.virtualenvs
     export VIRTUALENVWRAPPER_PYTHON=$HOME/.local/pipx/venvs/virtualenvwrapper/bin/python
-    source virtualenvwrapper_lazy.sh
-    #export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-fi
 
-if [ "$VIRTUAL_ENV" != "" ]; then
-    . "$VIRTUAL_ENV/bin/activate"
-else
-    if [ "$VIRTUALENV" != "" ] ; then
-        # Seems slightly faster than "workon $VIRTUALENV"
-        . "$WORKON_HOME/$VIRTUALENV/bin/activate"
-    fi
+    source virtualenvwrapper_lazy.sh
+    # Seems slightly faster than "workon $VIRTUALENV"
+    . "$WORKON_HOME/$VIRTUALENV/bin/activate"
 fi
 
 set -o emacs
