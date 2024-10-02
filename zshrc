@@ -86,9 +86,14 @@ export EDITOR=vim  # Use vim as default text editor
 stty -ixon
 export LC_TIME="C"  # Use 24 hour time
 
-export NVM_DIR="/home/trey/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use &>/dev/null  # This loads nvm
 export NODE_PATH=$NODE_PATH:/home/trey/.nvm/v0.10.35/lib/node_modules
+
+# Use fnm, which is like nvm but doesn't slow cause a slow shell load time
+FNM_PATH="/home/trey/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/home/trey/.local/share/fnm:$PATH"
+  eval "`fnm env`"
+fi
 
 # Add Cabal to path
 export PATH="$HOME/.cabal/bin:$PATH"
