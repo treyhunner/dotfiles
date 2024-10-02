@@ -2,7 +2,7 @@
 
 base_dir=$(dirname $(dirname $(realpath $0)))
 backup_dir="$base_dir.bkp.$(date --rfc-3339=ns)"
-files="tmux.conf tmux config/direnv config/nvim config/ptpython config/pip inputrc profile zprofile zshrc startup.py screenrc gitignore gitconfig editorconfig fonts pyenv/version ipython/profile_default/ipython_config.py"
+files="tmux.conf tmux config/direnv config/starship.toml config/nvim config/ptpython config/pip inputrc profile zprofile zshrc startup.py screenrc gitignore gitconfig editorconfig fonts pyenv/version ipython/profile_default/ipython_config.py"
 
 echo "Installing symlinks to: $base_dir"
 
