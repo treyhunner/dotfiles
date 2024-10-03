@@ -6,3 +6,6 @@
 .cache
 .*@neomake*
 .~lock.*
+
+# Ignore .envrc files by default
+.envrc

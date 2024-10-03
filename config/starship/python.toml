@@ -1,0 +1,40 @@
+format = """
+$python\
+$directory\
+$git_branch\
+$git_state\
+$character"""
+
+add_newline = false
+
+[python]
+format = '[🐍 ]($style)'
+style = "bright-black"
+
+[directory]
+style = "bright-blue"
+
+[character]
+success_symbol = "[\\$](black)"
+error_symbol = "[\\$](bright-red)"
+vimcmd_symbol = "[❮](green)"
+
+[git_branch]
+format = "[$symbol$branch]($style) "
+style = "bright-purple"
+
+[git_status]
+format = "[[( *$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed) ]($style)"
+style = "cyan"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "purple"
+
+[git_commit]
+only_detached = false
+tag_disabled = false
+format = '[\($hash$tag\)]($style) '
+style = "bright-black"
+
+[cmd_duration.disabled]

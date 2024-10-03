@@ -1,0 +1,27 @@
+# custom less-vanilla Starship config and a custom "venv" script for venv creation
+layout_python() {
+    if [[ -d ".venv" ]]; then
+        VIRTUAL_ENV="$(pwd)/.venv"
+    fi
+
+    if [[ -z $VIRTUAL_ENV || ! -d $VIRTUAL_ENV ]]; then
+        log_status "No virtual environment exists. Executing custom \`venv venv\` command to create one."
+        venv venv
+        VIRTUAL_ENV="$(pwd)/.venv"
+    fi
+
+    # These lines work for activating the virtual environment for starship
+    PATH_add "$VIRTUAL_ENV/bin"
+    export UV_ACTIVE=1  # or VENV_ACTIVE=1
+    export VIRTUAL_ENV
+
+    # This would be necessary or a non-starship shell, to update the prompt
+    # . $VIRTUAL_ENV/bin/activate
+
+    export STARSHIP_CONFIG=/home/trey/.config/starship/python.toml
+}
+
+# custom less-vanilla Starship config for my git repositories
+layout_git() {
+    export STARSHIP_CONFIG=/home/trey/.config/starship/git.toml
+}
