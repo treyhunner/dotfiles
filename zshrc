@@ -47,8 +47,6 @@ alias "paste=xclip -o"
 # Setup python-launcher to use pyenv default version
 export PY_PYTHON=$(head -n 1 $(pyenv root)/version | cut -d "." -f 1,2)
 
-alias mkvenv3='mkvirtualenv -a $PWD --python=python$PY_PYTHON'
-alias mkvenv2='mkvirtualenv -a $PWD --python=$(which python2)'
 alias mshell='docker-compose exec --user="$(id -u):$(id -g)" django python manage.py shell'
 function mrun(){
     cat "$@" | docker exec --user="$(id -u):$(id -g)" -i $(docker-compose ps -q django) python manage.py shell
@@ -62,6 +60,70 @@ alias cvim='vim -c "call ToggleFancyFeatures()"'
 
 # Setup python-launcher to use startup file
 alias py='PYTHONSTARTUP="$HOME/.startup.py" py'
+
+venv() {
+    local venv_name
+    local dir_name=$(basename "$PWD")
+
+    # If there are no arguments or the last argument starts with a dash, use dir_name
+    if [ $# -eq 0 ] || [[ "${!#}" == -* ]]; then
+        venv_name="$dir_name"
+    else
+        venv_name="${!#}"
+        set -- "${@:1:$#-1}"
+    fi
+
+    # Check if .envrc already exists
+    if [ -f .envrc ]; then
+        echo "Error: .envrc already exists" >&2
+        return 1
+    fi
+
+    # Create venv using uv with all passed arguments
+    if ! uv venv --seed --prompt "$@" "$venv_name"; then
+        echo "Error: Failed to create venv" >&2
+        return 1
+    fi
+
+    # Create .envrc
+    echo "layout python" > .envrc
+
+    # Append to ~/.projects
+    echo "${venv_name} = ${PWD}" >> ~/.projects
+
+    # Allow direnv to immediately activate the virtual environment
+    direnv allow
+}
+
+workon() {
+    local project_name="$1"
+    local projects_file="$HOME/.projects"
+    local project_dir
+
+    # Check for projects config file
+    if [[ ! -f "$projects_file" ]]; then
+        echo "Error: $projects_file not found" >&2
+        return 1
+    fi
+
+    # Get the project directory for the given project name
+    project_dir=$(grep -E "^$project_name\s*=" "$projects_file" | sed 's/^[^=]*=\s*//')
+
+    # Ensure a project directory was found
+    if [[ -z "$project_dir" ]]; then
+        echo "Error: Project '$project_name' not found in $projects_file" >&2
+        return 1
+    fi
+
+    # Ensure the project directory exists
+    if [[ ! -d "$project_dir" ]]; then
+        echo "Error: Directory $project_dir does not exist" >&2
+        return 1
+    fi
+
+    # Change directories
+    cd "$project_dir"
+}
 
 # Use virtualenvwrapper only for tmux sessions that set VIRTUALENV env variable
 if [[ -d "$HOME/.virtualenvs" && "$VIRTUALENV" != "" ]]; then
