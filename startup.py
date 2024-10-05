@@ -17,14 +17,15 @@ else:
     cmds = [
         ("self.", r"\C-s", "_self"),        # Ctrl-S inserts "self."
         ("with open(", r"\C-w", "_with"),   # Ctrl-W inserts "with open("
-        ("import ", r"\C-i", "_import"),    # Ctrl-I inserts "import "
+        ("import ", r"\C-n", "_import"),    # Ctrl-I inserts "import "
         ("print(", r"\C-p", "_print"),      # Ctrl-P inserts "print("
     ]
     for text, key, name in cmds:
         exec(dedent(f"""
             class _cmds:
                 class {name}(Command):
-                    def do(self): self.reader.insert({text!r})
+                    def do(self):
+                        self.reader.insert({text!r})
                 reader.commands[{name!r}] = {name}
                 reader.bind({key!r}, {name!r})
         """))
