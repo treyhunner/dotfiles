@@ -59,7 +59,7 @@ alias open=xdg-open
 alias cvim='vim -c "call ToggleFancyFeatures()"'
 
 # Setup python-launcher to use startup file
-alias py='PYTHONSTARTUP="$HOME/.startup.py" py'
+export PYTHONSTARTUP=$HOME/.startup.py
 
 venv() {
     local venv_name
