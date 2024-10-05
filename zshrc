@@ -64,13 +64,28 @@ alias py='PYTHONSTARTUP="$HOME/.startup.py" py'
 venv() {
     local venv_name
     local dir_name=$(basename "$PWD")
+    local uv_args=()
 
-    # If there are no arguments or the last argument starts with a dash, use dir_name
-    if [ $# -eq 0 ] || [[ "${!#}" == -* ]]; then
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -*)
+                uv_args+=("$1")
+                if [[ "$2" != -* && -n "$2" ]]; then
+                    uv_args+=("$2")
+                    shift
+                fi
+                ;;
+            *)
+                venv_name="$1"
+                ;;
+        esac
+        shift
+    done
+
+    # If no venv_name was provided, use the directory name
+    if [[ -z "$venv_name" ]]; then
         venv_name="$dir_name"
-    else
-        venv_name="${!#}"
-        set -- "${@:1:$#-1}"
     fi
 
     # Check if .envrc already exists
@@ -79,8 +94,8 @@ venv() {
         return 1
     fi
 
-    # Create venv using uv with all passed arguments
-    if ! uv venv --seed --prompt "$@" "$venv_name"; then
+    # Create venv using uv with parsed arguments
+    if ! uv venv --seed --prompt "${uv_args[@]}" "$venv_name"; then
         echo "Error: Failed to create venv" >&2
         return 1
     fi
