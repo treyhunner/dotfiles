@@ -17,8 +17,9 @@ else:
     cmds = [
         ("self.", r"\C-s", "_self"),        # Ctrl-S inserts "self."
         ("with open(", r"\C-w", "_with"),   # Ctrl-W inserts "with open("
-        ("import ", r"\C-n", "_import"),    # Ctrl-I inserts "import "
+        ("import ", r"\C-n", "_import"),    # Ctrl-N inserts "import "
         ("print(", r"\C-p", "_print"),      # Ctrl-P inserts "print("
+        ("class ", r"\C-t", "_class"),      # Ctrl-T inserts "class "
     ]
     for text, key, name in cmds:
         exec(dedent(f"""
