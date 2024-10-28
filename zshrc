@@ -95,7 +95,7 @@ venv() {
     fi
 
     # Create venv using uv with parsed arguments
-    if ! uv venv --seed --prompt "${uv_args[@]}" "$venv_name"; then
+    if ! uv venv --python-preference=system --seed --prompt "${uv_args[@]}" "$venv_name"; then
         echo "Error: Failed to create venv" >&2
         return 1
     fi
@@ -110,23 +110,24 @@ venv() {
     direnv allow
 }
 
+PROJECTS_FILE=$HOME/.projects
+
 workon() {
     local project_name="$1"
-    local projects_file="$HOME/.projects"
     local project_dir
 
     # Check for projects config file
-    if [[ ! -f "$projects_file" ]]; then
-        echo "Error: $projects_file not found" >&2
+    if [[ ! -f "$PROJECTS_FILE" ]]; then
+        echo "Error: $PROJECTS_FILE not found" >&2
         return 1
     fi
 
     # Get the project directory for the given project name
-    project_dir=$(grep -E "^$project_name\s*=" "$projects_file" | sed 's/^[^=]*=\s*//')
+    project_dir=$(grep -E "^$project_name\s*=" "$PROJECTS_FILE" | sed 's/^[^=]*=\s*//')
 
     # Ensure a project directory was found
     if [[ -z "$project_dir" ]]; then
-        echo "Error: Project '$project_name' not found in $projects_file" >&2
+        echo "Error: Project '$project_name' not found in $PROJECTS_FILE" >&2
         return 1
     fi
 
@@ -139,6 +140,14 @@ workon() {
     # Change directories
     cd "$project_dir"
 }
+
+# Completion for workon:
+_complete_workon() {
+    projects=(${(f)"$(cat $PROJECTS_FILE | cut -f -1 -d ' ')"})
+    _arguments '*:projects:($projects)'
+}
+
+compdef _complete_workon workon
 
 # Use virtualenvwrapper only for tmux sessions that set VIRTUALENV env variable
 if [[ -d "$HOME/.virtualenvs" && "$VIRTUALENV" != "" ]]; then
