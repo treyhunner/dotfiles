@@ -1,0 +1,69 @@
+#!/usr/bin/env -S uv run --quiet --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "ffmpeg-python==0.2.0",
+#     "openai==0.27.2",
+# ]
+# ///
+"""Use whisper to caption the given video file."""
+from argparse import ArgumentParser
+from os import fsencode
+from pathlib import Path
+from tempfile import TemporaryDirectory
+import sys
+
+import ffmpeg
+import openai
+
+
+openai.api_key_path = Path.home() / ".openai"
+
+
+def generate_captions(video_path, vtt_path):
+    """Generate caption file out of audio track."""
+    # Extracting just the audio (for whisper)
+    with TemporaryDirectory() as directory:
+        audio_file = Path(directory, video_path.name).with_suffix(".m4a")
+        (
+            ffmpeg.input(fsencode(video_path))
+            .audio
+            .output(fsencode(audio_file), acodec="copy")
+            .run()
+        )
+        with audio_file.open(mode="rb") as binary_audio_file:
+            transcript = openai.Audio.transcribe(
+                "whisper-1",
+                binary_audio_file,
+                response_format="vtt",
+                language="en",
+            )
+    vtt_path.write_text(transcript)
+
+
+def process_video(video_file):
+    input_file = video_file
+    if not input_file.is_file():
+        sys.exit(f"Not a file: {input_file}")
+    target_directory = input_file.parent
+    with TemporaryDirectory() as directory:
+        directory = Path(directory)
+        print("Generating captions for", input_file)
+        subtitles_file = directory / input_file.with_suffix(".vtt").name
+        generate_captions(input_file, subtitles_file)
+        final_subtitles_file = target_directory / subtitles_file.name
+        subtitles_file.rename(final_subtitles_file)
+        print("Wrote", final_subtitles_file)
+
+
+def main():
+    parser = ArgumentParser()
+    parser.add_argument("video_file", type=Path)
+    args = parser.parse_args()
+    if not openai.api_key_path.is_file():
+        sys.exit(f"Must create {openai.api_key_path} file with Open AI API key.")
+    process_video(args.video_file)
+
+
+if __name__ == "__main__":
+    main()

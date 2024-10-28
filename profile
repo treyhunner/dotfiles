@@ -26,6 +26,11 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+# set PATH to include ~/.dotfiles/bin if it exists
+if [ -d "$HOME/.dotfiles/bin" ] ; then
+    PATH="$HOME/.dotfiles/bin:$PATH"
+fi
+
 # Setup pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 if "$PYENV_ROOT/bin/pyenv" --version &> /dev/null ; then

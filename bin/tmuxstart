@@ -1,0 +1,76 @@
+#!/bin/sh
+
+sessiondir=${TMUXSTART_DIR:-$HOME/.tmuxstart}
+ts_name=$(basename $0)
+
+# Print usage information if there's not enough arguments
+usage() {
+    echo "Usage: ${ts_name} [OPTIONS] SESSION\n"
+    echo "Launch reusable configurations for named tmux sessions.\n"
+    echo "Options:\n"
+    echo "-h Print help menu"
+    echo "-l List all available session files"
+    echo "-v Print ${ts_name} version number"
+}
+
+[ $# -lt 1 ] && usage && exit 1
+
+# local functions
+_print_version() {
+    local version
+    version='0.2.0-dev'
+    echo "${ts_name} ${version}"
+}
+
+# arguments parsing loop
+while getopts ':hlv' option; do
+    case "${option}" in
+        h)
+            usage ; exit 0 ;;
+        l)
+            \ls  $sessiondir ; exit 0 ;;
+        v)
+            _print_version ; exit 0 ;;
+        *)
+            echo "Invalid option"
+            usage ; exit 1
+            ;;
+    esac
+done
+
+# Some helper functions for simpler session files
+new_session() {
+    # Set default path based on $path variable if defined
+    [ "$path" ] && cd "$path"
+    tmux new-session -d -s $session "$@"
+    [ "$path" ] && set_path "$path"
+}
+new_window() { tmux new-window -d -t $session "$@"; }
+rename() { tmux rename-window -t $session:"$@"; }
+kill_window() { tmux kill-window -t $session:"$@"; }
+select_pane() { tmux select-pane -t $session:"$@"; }
+select_window() { tmux select-window -t $session:"$@"; }
+select_layout() { tmux select-layout -t $session:"$@"; }
+send_keys() { tmux send-keys -t $session:"$@"; }
+send_line() { send_keys "$@" "Enter"; }
+set_env() { tmux set-environment -t $session "$@"; }
+set_path() { tmux set-option -t $session default-path "$@"; }
+split() { tmux split-window -t $session:"$@"; }
+swap() { tmux swap-pane -t $session:"$@"; }
+
+session=$1
+TMUX_OLD=$TMUX
+TMUX=
+if ! tmux has-session -t $session ; then
+    if [ -f "$sessiondir/$1" ] ; then
+        . "$sessiondir/$1"
+    else
+        tmux new-session -d -s $session
+    fi
+fi
+if [ "$TMUX_OLD" = "" ]; then
+    tmux attach-session -t $session
+else
+    tmux switch-client -t $session
+fi
+TMUX=$TMUX_OLD

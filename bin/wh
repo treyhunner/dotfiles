@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+"""Show the width and height of the current terminal window."""
+from shutil import get_terminal_size
+from textwrap import indent
+from time import sleep
+
+CLEAR = "\033[H\033[J"
+
+try:
+    while True:
+        cols, rows = get_terminal_size()
+        text = f"{cols} x {rows}"
+        padded_text = indent(text, (cols-len(text))//2 * " ")
+        vertical_pad = (rows-1)//2 * "\n"
+        print(CLEAR + vertical_pad + padded_text, flush=True)
+        sleep(0.1)
+except KeyboardInterrupt:
+    # Clear screen and exit on Ctrl-C
+    print(CLEAR, end="")

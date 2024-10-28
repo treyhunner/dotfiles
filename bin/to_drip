@@ -1,0 +1,53 @@
+#!/usr/bin/env -S uv run --quiet --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "html2text==2024.2.26",
+#     "markdown2==2.4.12",
+# ]
+# ///
+"""Pip markdown to this to convert it to HTML compatible with my Drip emails."""
+import markdown2
+import re
+import sys
+
+def replace_spaces_with_nbsp(match):
+    # Replace every two spaces with two non-breaking spaces
+    code_content = match.group(1).replace('  ', '&nbsp;&nbsp;')
+    # Convert newlines to <br /> and return
+    return code_content.replace('\n', '<br />')
+
+def custom_markdown_to_html(markdown):
+    # Convert using markdown2 with extras for fenced-code-blocks
+    html = markdown2.markdown(markdown.rstrip(), extras=["fenced-code-blocks"])
+
+    # Process code blocks: replace newlines with <br />, and spaces with &nbsp;
+    html = re.sub(r'<pre><code>(.*?)</code></pre>', lambda m: f'<code>{replace_spaces_with_nbsp(m)}</code><br />', html, flags=re.DOTALL)
+
+    # Replace paragraph tags with two <br /> tags using non-greedy regex
+    html = re.sub(r'<p>(.*?)</p>', r'\1<br /><br />', html, flags=re.DOTALL)
+
+    # Additional custom replacements for your specific case using non-greedy regexes
+    # Inline code
+    html = re.sub(r'<code>(.*?)</code>', r'<span style="font-family:IBM Plex Mono,monospace">\1</span>', html)
+
+    # Add line breaks after lists
+    html = re.sub(r'(<ul>.*?</ul>)', r'\1<br />', html)
+    html = re.sub(r'(<ol>.*?</ol>)', r'\1<br />', html)
+
+    # Bold
+    html = re.sub(r'<strong>(.*?)</strong>', r'<span style="font-weight:bold">\1</span>', html)
+
+    # Make <h2> tags bold and add <br /> after them
+    html = re.sub(r'<h2>(.*?)</h2>', r'<h2 style="font-weight:bold">\1</h2><br />', html)
+
+    # Remove any ending line breaks
+    return re.sub(r"(<br */?>)*\s*$", r"", html)
+
+
+print("Enter markdown and send EOF character (Ctrl-D or Ctrl-Z Enter)", file=sys.stderr)
+html = custom_markdown_to_html(sys.stdin.read())
+print("-" * 80, file=sys.stderr)
+print("HTML output", file=sys.stderr)
+print("-" * 80, file=sys.stderr)
+print(html)

@@ -1,0 +1,32 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "ffmpeg-normalize",
+# ]
+# ///
+"""Normalize audio in input video file."""
+from argparse import ArgumentParser
+from pathlib import Path
+
+from ffmpeg_normalize import FFmpegNormalize
+
+
+def normalize_audio_for(video_path, audio_normalized_path):
+    """Return audio-normalized video file saved in the given directory."""
+    ffmpeg_normalize = FFmpegNormalize(audio_codec="aac", audio_bitrate="192k", target_level=-17)
+    ffmpeg_normalize.add_media_file(str(video_path), audio_normalized_path)
+    ffmpeg_normalize.run_normalization()
+
+
+def main():
+    # Parse arguments
+    parser = ArgumentParser()
+    parser.add_argument("video_file", type=Path)
+    parser.add_argument("output_file", type=Path)
+    args = parser.parse_args()
+    normalize_audio_for(args.video_file, args.output_file)
+
+
+if __name__ == "__main__":
+    main()
