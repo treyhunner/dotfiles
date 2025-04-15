@@ -13,7 +13,9 @@
 	edit = commit --amend --only
 [hub]
 	protocol = ssh
-[url "ssh://git@heroku.com/"]
-	insteadOf = https://git.heroku.com/
 [init]
 	defaultBranch = main
+[url "git@github.com:"]
+    insteadOf = "gh:"
+[credential]
+       helper = libsecret

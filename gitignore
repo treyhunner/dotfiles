@@ -6,6 +6,7 @@
 .cache
 .*@neomake*
 .~lock.*
+.ipython
 
 # Ignore .envrc files by default
 .envrc
