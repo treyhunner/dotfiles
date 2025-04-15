@@ -47,13 +47,14 @@ alias "paste=xclip -o"
 # Setup python-launcher to use pyenv default version
 export PY_PYTHON=$(head -n 1 $(pyenv root)/version | cut -d "." -f 1,2)
 
-alias mshell='docker-compose exec --user="$(id -u):$(id -g)" django python manage.py shell'
+alias mshell='docker compose exec --user="$(id -u):$(id -g)" django python manage.py shell'
 function mrun(){
-    cat "$@" | docker exec --user="$(id -u):$(id -g)" -i $(docker-compose ps -q django) python manage.py shell
+    cat "$@" | docker exec --user="$(id -u):$(id -g)" -i $(docker compose ps -q django) python manage.py shell
 }
-alias mtest='docker-compose exec test pytest'
-alias mexec='docker-compose exec django'
-alias mmanage='docker-compose exec --user="$(id -u):$(id -g)" django python manage.py'
+alias mtest='docker compose exec test pytest'
+alias mexec='docker compose exec django'
+alias mmanage='docker compose exec --user="$(id -u):$(id -g)" django python manage.py'
+alias docker-compose="docker compose"  # In case I continue to type docker-compose
 alias web='python -m webbrowser'
 alias open=xdg-open
 alias cvim='vim -c "call ToggleFancyFeatures()"'
