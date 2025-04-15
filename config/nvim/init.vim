@@ -80,8 +80,8 @@ call plug#end()
 :nnoremap <Leader>w :Bdelete<CR>
 
 " Set Python paths
-let g:python_host_prog = '/home/trey/.pyenv/shims/python3'
-let g:python3_host_prog = '/home/trey/.pyenv/shims/python3'
+let g:python_host_prog = '/home/trey/.virtualenvs/neovim/bin/python'
+let g:python3_host_prog = '/home/trey/.virtualenvs/neovim/bin/python'
 
 " Vim surround extensions
 " https://github.com/tpope/vim-surround/issues/213
@@ -112,9 +112,9 @@ catch
 endtry
 
 " Check Python files with flake8 and pylint.
-let g:ale_linters = {'python': ['ruff']}
+let g:ale_linters = {'python': ['ruff', 'flake8']}
 " Fix Python files with black
-let g:ale_fixers = {'python': ['ruff', 'ruff_format', 'black', 'autopep8']}
+let g:ale_fixers = {'python': ['ruff', 'ruff_format', 'black']}
 let g:ale_fix_on_save = 1
 let g:ale_set_highlights = 0
 let g:ale_virtualtext_cursor = 0
