@@ -66,6 +66,8 @@ alias cvim='vim -c "call ToggleFancyFeatures()"'
 # Setup python-launcher to use startup file
 export PYTHONSTARTUP=$HOME/.startup.py
 
+PROJECTS_FILE=$HOME/.projects
+
 venv() {
     local venv_name
     local dir_name=$(basename "$PWD")
@@ -109,13 +111,11 @@ venv() {
     echo "layout python" > .envrc
 
     # Append to ~/.projects
-    echo "${venv_name} = ${PWD}" >> ~/.projects
+    echo "${venv_name} = ${PWD}" >> "$PROJECTS_FILE"
 
     # Allow direnv to immediately activate the virtual environment
     direnv allow
 }
-
-PROJECTS_FILE=$HOME/.projects
 
 workon() {
     local project_name="$1"
