@@ -40,9 +40,13 @@ alias '$'=''  # Copy-pasting commands with '$ ' in front still works
 # copy & paste commands
 alias "copy=xclip -sel clipboard"
 alias "paste=xclip -o"
+alias md2rst="pandoc --from=markdown-smart --to=rst --wrap=preserve"
 
 # Do not wait for full input before showing output in less
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+
+# some names I prefer to correctly accent
+alias lukasz="echo -n Łukasz | copy"
 
 # Setup python-launcher to use pyenv default version
 export PY_PYTHON=$(head -n 1 $(pyenv root)/version | cut -d "." -f 1,2)
