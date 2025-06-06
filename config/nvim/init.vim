@@ -68,7 +68,7 @@ function! DoRemote(arg)
 endfunction
 Plug 'dense-analysis/ale'  " Asynchronous linting
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'altercation/vim-colors-solarized'
+Plug 'lifepillar/vim-solarized8', { 'branch': 'neovim' }
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
@@ -106,7 +106,13 @@ try
   let g:solarized_termtrans=1
   set t_Co=16
   set background=light
-  colorscheme solarized
+  autocmd vimenter * ++nested colorscheme solarized8
+
+  " Make spell-checking highlighting more subtle
+  autocmd ColorScheme * hi clear SpellBad
+  autocmd ColorScheme * hi clear SpellCap
+  autocmd ColorScheme * hi SpellBad cterm=underline
+  autocmd ColorScheme * hi SpellCap cterm=underline
 catch
   silent! colorscheme desert
 endtry
