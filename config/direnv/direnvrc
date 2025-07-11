@@ -13,3 +13,7 @@ layout_python() {
 layout_git() {
     export STARSHIP_CONFIG=/home/trey/.config/starship/git.toml
 }
+
+layout_vanilla() {
+    export STARSHIP_CONFIG=/home/trey/.config/starship/vanilla.toml
+}

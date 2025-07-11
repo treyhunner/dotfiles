@@ -1,0 +1,14 @@
+format = """
+$python\
+$character"""
+
+add_newline = false
+
+[python]
+format = '([(\($virtualenv\) )]($style))'
+style = "bright-black"
+
+[character]
+success_symbol = "[\\$](black)"
+error_symbol = "[\\$](bright-red)"
+vimcmd_symbol = "[❮](green)"
