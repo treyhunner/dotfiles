@@ -1,0 +1,178 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "libtmux==0.37.0",
+# ]
+# ///
+import re
+import subprocess
+import sys
+from argparse import ArgumentParser
+from pathlib import Path
+from time import sleep
+
+import libtmux
+
+
+def ctrl(letter):
+    return chr(ord(letter.upper()) - 64)
+
+
+server = libtmux.Server()
+session_names = [session.name for session in server.list_sessions()]
+
+
+SECTION_RE = re.compile(r"\n?^@@\s*", flags=re.MULTILINE)
+
+
+def parse_commands(file_contents):
+    valid_commands = ["PASTE ", "RUN ", "VIM_WRITE ", "VIM_UPDATE ", "PY_PASTE"]
+    for section in SECTION_RE.split(file_contents):
+        if not section:
+            continue
+        if not section.startswith(tuple(valid_commands)):
+            raise ValueError(f"Invalid section: {section}")
+        statement, text = section.split("\n", maxsplit=1)
+        command, window = statement.split()
+        if "." in window:
+            window, pane = window.rsplit(".", maxsplit=1)
+            pane = int(pane)
+        else:
+            pane = 1
+        window = int(window)
+        text = text.removeprefix("\n").removesuffix("\n")
+        if command == "RUN":
+            yield "run", window, pane, text
+            continue
+        if command == "VIM_WRITE":
+            yield "vim_write", window, pane, text
+            continue
+        if command == "VIM_UPDATE":
+            assert not text
+            yield "vim_update", window, pane, text
+            continue
+        if command == "PY_PASTE":
+            yield "py_paste", window, pane, text
+            continue
+
+        assert command == "PASTE"
+        if text.startswith("ipython\n"):
+            yield window, pane, "exit()\n"
+            yield window, pane, "ipython\n"
+            sleep(0.1)
+            text = ctrl("l") + text[8:].replace("\n", ctrl("q") + ctrl("j")) + ctrl("l")
+        yield "paste", window, pane, text
+
+
+def write(pane, text):
+    pane.send_keys(text, suppress_history=False, enter=False, literal=True)
+
+
+def parse_args():
+    parser = ArgumentParser()
+    subparsers = parser.add_subparsers(dest="action", required=True)
+
+    reset_parser = subparsers.add_parser("reset")
+    reset_parser.add_argument("tmux_session", choices=session_names)
+    reset_parser.add_argument("commands_file", type=Path)
+    reset_parser.add_argument("start", type=int, nargs="?", default=0)
+
+    capture_parser = subparsers.add_parser("capture")
+    capture_parser.add_argument("tmux_session", choices=session_names)
+    capture_parser.add_argument("directory", type=Path)
+    capture_parser.add_argument("windows", type=int)
+
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+
+    session = server.find_where({"session_name": args.tmux_session})
+
+    if args.action == "reset":
+        past_panes = set()
+        start_window = args.start
+        contents = args.commands_file.read_text()
+        for cmd, w_index, p_index, text in parse_commands(contents):
+            try:
+                window = session.list_windows()[w_index - 1]
+            except IndexError:
+                sys.exit(f"No window {w_index}")
+            try:
+                pane = window.list_panes()[p_index - 1]
+            except IndexError:
+                sys.exit(f"Window {w_index} doesn't have pane {p_index}")
+            if w_index < start_window:
+                continue  # These are commands for a window before the start
+            if cmd == "run":
+                subprocess.run(text, cwd=pane["pane_current_path"], shell=True, check=True)
+                continue
+            esc = ctrl("[")
+            if cmd == "vim_write":
+                write(pane, ctrl("C") + esc)
+                write(pane, "1GdG")
+                write(pane, ":set paste\n")
+                write(pane, f"i{text}")
+                sleep(0.1)
+                write(pane, ctrl("C") + esc)
+                write(pane, ":set nopaste\n")
+                write(pane, ":write!\n")
+                write(pane, "1G")
+                write(pane, ctrl("C") + esc)
+                write(pane, "  ")
+                continue
+            if cmd == "vim_update":
+                write(pane, ctrl("C") + esc)
+                write(pane, ":e!\n\n")
+                write(pane, "1G")
+                write(pane, ctrl("C") + esc)
+                write(pane, "  ")
+                continue
+            if cmd == "py_paste":
+                pane_text = "".join(
+                    f"{line}\n"
+                    for line in pane.capture_pane()
+                )
+                q_if_less = "qqq" if pane_text.endswith("\n:\n") else ""
+                write(pane, ctrl("C") + esc + ctrl("C") + q_if_less + "\n\n")
+                write(pane, ctrl('L'))
+                for line in text.splitlines(keepends=True):
+                    write(pane, ctrl("a") + ctrl("k") + line)
+                continue
+
+            if text.startswith("vim\n"):
+                text = text.removeprefix("vim\n")
+                write(pane, ctrl("C") + esc)
+            else:
+                pane_text = "".join(f"{line}\n" for line in pane.capture_pane())
+                q_if_less = "qqq" if pane_text.endswith("\n:\n") else ""
+                write(pane, "\r\n")
+                write(pane, ctrl("C"))
+                write(pane, ctrl("C"))
+                write(pane, q_if_less + "\n\n")
+                write(pane, ctrl("L"))
+            write(pane, text)
+            past_panes.add((w_index, p_index))
+
+        for window_index, pane_index in past_panes:
+            if pane_index == 1:
+                window = session.list_windows()[window_index - 1]
+                first_pane = window.list_panes()[0]
+                first_pane.select_pane()
+
+        session.select_window("1")
+    elif args.action == "capture":
+        args.directory.mkdir(exist_ok=True)
+        for i in range(1, args.windows + 1):
+            for j, pane in enumerate(session.select_window(i).list_panes()):
+                text = "".join(f"{line}\n" for line in pane.capture_pane())
+                if text.startswith(">>> "):
+                    (args.directory / f"repl-{i}.{j}.txt").write_text(text)
+                else:
+                    (args.directory / f"{i}.{j}.txt").write_text(text)
+
+
+if __name__ == "__main__":
+    main()
