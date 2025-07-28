@@ -57,7 +57,6 @@ def _main():
             print()
             sys.exit(1)
 
-    """
     try:
         from _colorize import set_theme, default_theme, Syntax, ANSIColors
     except ImportError:
@@ -78,7 +77,6 @@ def _main():
             ),
         )
         set_theme(solarized_light_theme)
-    """
 
     # Fun stuff, in case rich is installed
     try:
