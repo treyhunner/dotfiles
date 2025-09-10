@@ -82,6 +82,61 @@ def _main():
         reader.bind(r"\<home>", "home")
         reader.bind(r"\<end>", "end")
 
+        class move_line_down(EditCommand):
+            """Move the current line down."""
+            def do(self):
+                r = self.reader
+                x, y = r.pos2xy()
+                lines = r.get_unicode().splitlines(keepends=True)
+
+                # Can't move down if we're on the last line
+                if y >= len(lines) - 1:
+                    return
+
+                # Swap current line with next line
+                lines[y], lines[y+1] = lines[y+1], lines[y]
+
+                if not lines[y].endswith("\n"):
+                    lines[y] += "\n"
+
+                # Update buffer with swapped lines
+                r.buffer[:] = list("".join(lines))
+                r.last_refresh_cache.invalidated = True
+                r.dirty = True
+
+                # Move cursor to same column in the moved line (one line up)
+                r.pos += len(lines[y])
+
+        # Bind Alt+Down to move line down
+        reader.commands["move-line-down"] = move_line_down
+        reader.bind(r"\e[1;3B", "move-line-down")  # Alt+Down
+
+        class move_line_up(EditCommand):
+            """Move the current line up."""
+            def do(self):
+                r = self.reader
+                x, y = r.pos2xy()
+                lines = r.get_unicode().splitlines(keepends=True)
+
+                # Can't move up if we're on the first line
+                if y <= 0:
+                    return
+
+                # Swap current line with previous line
+                lines[y-1], lines[y] = lines[y], lines[y-1]
+
+                # Update buffer with swapped lines
+                r.buffer[:] = list("".join(lines))
+                r.last_refresh_cache.invalidated = True
+                r.dirty = True
+
+                # Move cursor to same column in the moved line (one line up)
+                r.pos -= len(lines[y])
+
+        # Bind Alt+Up to move line up
+        reader.commands["move-line-up"] = move_line_up
+        reader.bind(r"\e[1;3A", "move-line-up")  # Alt+Up
+
         # bind C+x C+r to subprocess.run
         class Run(Command):
             def do(self):
