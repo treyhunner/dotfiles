@@ -48,16 +48,6 @@ alias md2rst="pandoc --from=markdown-smart --to=rst --wrap=preserve"
 # some names I prefer to correctly accent
 alias lukasz="echo -n Łukasz | copy"
 
-# Setup python-launcher to use pyenv default version
-export PY_PYTHON=$(head -n 1 $(pyenv root)/version | cut -d "." -f 1,2)
-
-alias mshell='docker compose exec --user="$(id -u):$(id -g)" django python manage.py shell'
-function mrun(){
-    cat "$@" | docker exec --user="$(id -u):$(id -g)" -i $(docker compose ps -q django) python manage.py shell
-}
-alias mtest='docker compose exec test pytest'
-alias mexec='docker compose exec django'
-alias mmanage='docker compose exec --user="$(id -u):$(id -g)" django python manage.py'
 alias docker-compose="docker compose"  # In case I continue to type docker-compose
 alias web='python -m webbrowser'
 alias open=xdg-open
@@ -163,6 +153,18 @@ if [[ -d "$HOME/.virtualenvs" && "$VIRTUALENV" != "" ]]; then
     # Seems slightly faster than "workon $VIRTUALENV"
     . "$WORKON_HOME/$VIRTUALENV/bin/activate"
 fi
+
+# Completion for just
+_justfile_comp() {
+    if [[ -f "justfile" ]]; then
+        local opts
+        opts="`just --summary`"
+        reply=(${(s: :)opts})
+    fi
+}
+
+# Use function for first arg, filename completion for subsequent args
+compctl -K _justfile_comp -x 'p[2,-1]' -f -- just
 
 set -o emacs
 
