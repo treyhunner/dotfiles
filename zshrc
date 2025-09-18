@@ -211,3 +211,15 @@ PS1='$(show_virtual_env)'$PS1
 export DIRENV_LOG_FORMAT=
 
 eval "$(starship init zsh)"
+
+# Add all uv-managed Python tool bins to PATH
+uv_pythons=("${(@f)$(uv python list --managed-python --only-installed --color=never \
+  | awk '{print $2}' \
+  | tac)}")
+for python_executable in $uv_pythons; do
+  python_bin_dir="${python_executable:h}"  # :h is zsh's dirname modifier
+  case ":$PATH:" in
+    *":$python_bin_dir:"*) ;;  # Already in PATH
+    *) PATH="$python_bin_dir:$PATH" ;; # Not yet in PATH
+  esac
+done
