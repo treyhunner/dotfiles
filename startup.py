@@ -1,4 +1,74 @@
 def _main():
+    try:
+        import pyrepl_hacks as repl
+    except ImportError:
+        _complex_main()
+    else:
+        repl.bind("Alt+M", "move-to-indentation")
+        repl.bind("Shift+Tab", "dedent")
+        repl.bind("Alt+Down", "move-line-down")
+        repl.bind("Alt+Up", "move-line-up")
+        repl.bind("Shift+Home", "home")
+        repl.bind("Shift+End", "end")
+
+        insertions = [
+            ("Ctrl+N", "[2, 1, 3, 4, 7, 11, 18, 29]"),
+            ("Ctrl+F", '["apples", "oranges", "bananas", "strawberries", "pears"]'),
+            ("Ctrl+W", 'with open('),
+            ("Ctrl+S", 'self.'),
+            ("Ctrl+P", 'print('),
+            ("Ctrl+T", 'class '),
+            ("Ctrl+M", 'import '),
+        ]
+        for binding, text in insertions:
+            repl.bind_to_insert(binding, text)
+
+
+        @repl.bind(r"Ctrl+X Ctrl+R", with_event=True)
+        def subprocess_run(reader, event_name, event):
+            reader.insert("import subprocess\n")
+            code = 'subprocess.run("", shell=True)'
+            reader.insert(code)
+            for _ in range(len(code) - code.index('""') - 1):
+                repl.commands.left(reader, event_name, event)
+
+        # -i hack
+        import sys
+        _special_chars = {r"\C": "Ctrl"}
+        if sys.orig_argv[1:] == ["-i"]:  # Hack to overload -i to print keys
+            print()
+            for key, text in insertions:
+                special, _, char = key.partition("-")
+                special = _special_chars[special]
+                print(f"{special}-{char.upper()}:", text)
+            print()
+            sys.exit(1)
+
+        try:
+            repl.update_theme(
+                keyword="green",
+                builtin="blue",
+                comment="intense blue",
+                string="cyan",
+                number="cyan",
+                definition="blue",
+                soft_keyword="bold green",
+                op="intense green",
+                reset="reset, intense green",
+            )
+        except ImportError:
+            pass  # We're on Python 3.13 or below
+
+    # Fun stuff, in case rich is installed
+    try:
+        import rich.pretty
+    except ImportError:
+        pass
+    else:
+        rich.pretty.install()
+
+
+def _complex_main():
     import sys
     import textwrap
     try:
@@ -182,13 +252,6 @@ def _main():
         )
         set_theme(solarized_light_theme)
 
-    # Fun stuff, in case rich is installed
-    try:
-        import rich.pretty
-    except ImportError:
-        pass
-    else:
-        rich.pretty.install()
-
 _main()
 del _main
+del _complex_main
