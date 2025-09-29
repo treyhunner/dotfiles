@@ -1,0 +1,61 @@
+#!/usr/bin/env -S uv run --quiet --script
+# /// script
+# requires-python = ">=3.13"
+# ///
+import sys
+from pathlib import Path
+
+SUFFIXES = (".md", ".rst")
+
+# Skip some common large directories for performance reasons
+SKIP_DIRS = {
+    "node_modules",
+    ".git",
+    ".venv",
+    ".tox",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".pytest_cache",
+}
+
+HIGHLIGHT = "\x1b[1;35m"
+RESET = "\x1b[0m"
+
+
+def iter_files(root):
+    for current, dirs, files in root.walk():
+        dirs[:] = [
+            name
+            for name in sorted(dirs)
+            if name not in SKIP_DIRS
+        ]
+        for name in sorted(files):
+            if name.lower().endswith(SUFFIXES):
+                yield current / name
+
+
+def scan_file(path):
+    with path.open(encoding="utf-8", errors="ignore") as file:
+        for line_number, line in enumerate(file, start=1):
+            if line.removeprefix(".. ").lstrip().startswith("TODO"):
+                yield line_number, line.removesuffix("\n")
+
+
+def highlight_todo(text):
+    if not sys.stdout.isatty():
+        return text
+    return text.replace("TODO", f"{HIGHLIGHT}TODO{RESET}", count=1)
+
+
+def main():
+    found = False
+    for path in iter_files(Path()):
+        for line_number, line in scan_file(path):
+            print(f"{path}:{line_number}:{highlight_todo(line)}")
+            found = True
+
+    return int(found)
+
+
+if __name__ == "__main__":
+    sys.exit(main())
