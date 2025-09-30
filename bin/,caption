@@ -27,7 +27,10 @@ def generate_captions(video_path, vtt_path):
     elif getenv("OPENAI_API_KEY"):
         api_key = None
     else:
-        sys.exit(f"Must create {OPENAI_API_KEY_FILE} file with Open AI API key.")
+        sys.exit(
+            f"Error: create {str(OPENAI_API_KEY_FILE)!r} file "
+            + "containing Open AI API key."
+        )
     client = OpenAI(api_key=api_key)
     with TemporaryDirectory() as directory:
         # Extracting just the audio (for whisper)
@@ -35,10 +38,17 @@ def generate_captions(video_path, vtt_path):
         (
             ffmpeg
             .input(fsencode(video_path))
-            .output(fsencode(audio_file), vn=None, ac=1, ar=16000, acodec="libopus", audio_bitrate="24k")
+            .output(
+                fsencode(audio_file),
+                vn=None,
+                ac=1,
+                ar=16000,
+                acodec="libopus",
+                audio_bitrate="24k",
+            )
             .run()
         )
-        print("Audio file size: {audio_file.stat().st_size/1024**2:,.1f}MB")
+        print(f"Audio file size: {audio_file.stat().st_size/1024**2:,.1f}MB")
         with audio_file.open(mode="rb") as binary_audio_file:
             transcript = client.audio.transcriptions.create(
                 model="whisper-1",
