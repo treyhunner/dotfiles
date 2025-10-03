@@ -223,3 +223,12 @@ for python_executable in $uv_pythons; do
     *) PATH="$python_bin_dir:$PATH" ;; # Not yet in PATH
   esac
 done
+
+export OPENAI_API_KEY=$(cat ~/.openai)
+
+# opencode
+export PATH=/home/trey/.opencode/bin:$PATH
+
+# Wasmer
+export WASMER_DIR="/home/trey/.wasmer"
+[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
