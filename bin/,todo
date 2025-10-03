@@ -18,7 +18,8 @@ SKIP_DIRS = {
     ".pytest_cache",
 }
 
-HIGHLIGHT = "\x1b[1;35m"
+TODO_HIGHLIGHT = "\x1b[1;35m"
+PATH_HIGHLIGHT = "\x1b[1;34m"
 RESET = "\x1b[0m"
 
 
@@ -44,17 +45,33 @@ def scan_file(path):
 def highlight_todo(text):
     if not sys.stdout.isatty():
         return text
-    return text.replace("TODO", f"{HIGHLIGHT}TODO{RESET}", count=1)
+    return text.replace("TODO", f"{TODO_HIGHLIGHT}TODO{RESET}", count=1)
+
+
+def highlight_path(text):
+    if not sys.stdout.isatty():
+        return text
+    return f"{PATH_HIGHLIGHT}{text}{RESET}"
 
 
 def main():
-    found = False
+    found_any = False
     for path in iter_files(Path()):
-        for line_number, line in scan_file(path):
-            print(f"{path}:{line_number}:{highlight_todo(line)}")
-            found = True
+        hits = list(scan_file(path))
+        if not hits:
+            continue
 
-    return int(found)
+        # Print filename
+        if found_any:
+            print()
+        found_any = True
+        print(highlight_path(path))
+
+        # Print matching lines
+        for line_number, line in hits:
+            print(f"{line_number:>3}: {highlight_todo(line)}")
+
+    return int(found_any)  # success if no matches
 
 
 if __name__ == "__main__":
