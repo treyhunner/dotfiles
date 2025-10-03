@@ -18,11 +18,11 @@ SAVEHIST=1000
 export PS1="%~ \$ "
 
 # If not running interactively, don't do anything
-[ -z "$PROMPT" ] && return
+[[ ! -o interactive ]] && return
 
 # Enable color support for ls and grep
-if which dircolors &> /dev/null ; then
-    eval $(dircolors -b)
+if command -v dircolors >/dev/null 2>&1 ; then
+    eval "$(dircolors -b)"
     alias ls='ls -1 --color=auto'
     alias grep='grep --color=auto'
 else
@@ -30,7 +30,7 @@ else
 fi
 
 # Replace git with hub if found
-if which hub &> /dev/null ; then
+if command -v hub >/dev/null 2>&1 ; then
     function git(){ hub "$@" }
 fi
 
@@ -155,7 +155,7 @@ fi
 _justfile_comp() {
     if [[ -f "justfile" ]]; then
         local opts
-        opts="`just --summary`"
+        opts="$(just --summary)"
         reply=(${(s: :)opts})
     fi
 }
@@ -170,14 +170,14 @@ stty -ixon
 FNM_PATH="/home/trey/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="/home/trey/.local/share/fnm:$PATH"
-  eval "`fnm env`"
+  eval "$(fnm env)"
 fi
 
 # Use local node_modules versions of packages
 export PATH="./node_modules/.bin:$PATH"
 
 # Set directory colors for solarized light
-eval `dircolors ~/.dotfiles/dircolors.ansi-light`
+eval "$(dircolors -b ~/.dotfiles/dircolors.ansi-light)"
 
 # Setup direnv
 eval "$(direnv hook zsh)"
