@@ -3,10 +3,7 @@ setopt AUTO_PUSHD       # Push the old directory onto a stack
 setopt PUSHD_MINUS      # Swap the directory stack ordering
 
 # Autocompletion
-fpath=(~/.zsh/completion $fpath)
 zstyle ':completion:*' completer _expand _complete _ignored _correct
-autoload -U bashcompinit
-bashcompinit
 autoload -U compinit
 compinit
 
@@ -15,24 +12,12 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
 
-export PS1="%~ \$ "
-
 # If not running interactively, don't do anything
 [[ ! -o interactive ]] && return
 
-# Enable color support for ls and grep
-if command -v dircolors >/dev/null 2>&1 ; then
-    eval "$(dircolors -b)"
-    alias ls='ls -1 --color=auto'
-    alias grep='grep --color=auto'
-else
-    alias ls='ls -1'
-fi
-
-# Replace git with hub if found
-if command -v hub >/dev/null 2>&1 ; then
-    function git(){ hub "$@" }
-fi
+# Aliases for ls and grep
+alias ls='ls -1 --color=auto'
+alias grep='grep --color=auto'
 
 alias gt='cd $(git rev-parse --show-toplevel)'
 alias '$'=''  # Copy-pasting commands with '$ ' in front still works
@@ -152,18 +137,15 @@ if [[ -d "$HOME/.virtualenvs" && "$VIRTUALENV" != "" ]]; then
 fi
 
 # Completion for just
-_justfile_comp() {
-    if [[ -f "justfile" ]]; then
-        local opts
-        opts="$(just --summary)"
-        reply=(${(s: :)opts})
+_just() {
+    local -a recipes
+    if [[ -f justfile ]]; then
+        recipes=(${(z)$(just --summary 2>/dev/null)})
+        _describe 'recipe' recipes
     fi
 }
+compdef _just just
 
-# Use function for first arg, filename completion for subsequent args
-compctl -K _justfile_comp -x 'p[2,-1]' -f -- just
-
-set -o emacs
 stty -ixon
 
 # Use fnm, which is like nvm but doesn't slow cause a slow shell load time
@@ -181,17 +163,6 @@ eval "$(dircolors -b ~/.dotfiles/dircolors.ansi-light)"
 
 # Setup direnv
 eval "$(direnv hook zsh)"
-
-setopt PROMPT_SUBST
-
-# Add direnv-activated venv to prompt
-show_virtual_env() {
-  if [[ -n "$VIRTUAL_ENV_PROMPT" && -n "$DIRENV_DIR" ]]; then
-    echo "($(basename $VIRTUAL_ENV_PROMPT)) "
-  fi
-}
-PS1='$(show_virtual_env)'$PS1
-
 export DIRENV_LOG_FORMAT=
 
 eval "$(starship init zsh)"
