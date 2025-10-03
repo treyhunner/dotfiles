@@ -166,8 +166,6 @@ compctl -K _justfile_comp -x 'p[2,-1]' -f -- just
 set -o emacs
 stty -ixon
 
-export NODE_PATH=$NODE_PATH:/home/trey/.nvm/v0.10.35/lib/node_modules
-
 # Use fnm, which is like nvm but doesn't slow cause a slow shell load time
 FNM_PATH="/home/trey/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
@@ -175,22 +173,14 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
-# Add Cabal to path
-export PATH="$HOME/.cabal/bin:$PATH"
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
 # Use local node_modules versions of packages
 export PATH="./node_modules/.bin:$PATH"
-[[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
 
 # Set directory colors for solarized light
 eval `dircolors ~/.dotfiles/dircolors.ansi-light`
 
 # Setup direnv
 eval "$(direnv hook zsh)"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 setopt PROMPT_SUBST
 
