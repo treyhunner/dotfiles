@@ -53,9 +53,6 @@ alias web='python -m webbrowser'
 alias open=xdg-open
 alias cvim='vim -c "call ToggleFancyFeatures()"'
 
-# Setup python-launcher to use startup file
-export PYTHONSTARTUP=$HOME/.startup.py
-
 PROJECTS_FILE=$HOME/.projects
 
 venv() {
@@ -167,10 +164,7 @@ _justfile_comp() {
 compctl -K _justfile_comp -x 'p[2,-1]' -f -- just
 
 set -o emacs
-
-export EDITOR=vim  # Use vim as default text editor
 stty -ixon
-export LC_TIME="C"  # Use 24 hour time
 
 export NODE_PATH=$NODE_PATH:/home/trey/.nvm/v0.10.35/lib/node_modules
 
