@@ -16,19 +16,10 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# Setup pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-if "$PYENV_ROOT/bin/pyenv" --version &> /dev/null ; then
-    PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init --path)"
-fi
-
-# set PATH so it includes user's private bin if it exists
+# set PATH so it includes user's private bin directories if they exist
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
-
-# set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
@@ -41,6 +32,6 @@ fi
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+[ -s "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm"
 
 . "$HOME/.cargo/env"
