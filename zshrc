@@ -24,6 +24,9 @@ SAVEHIST=1000
 # Disable flow control (Ctrl-S/Ctrl-Q)
 stty -ixon
 
+# Enable emacs-style keybindings (Ctrl-A, Ctrl-E, Ctrl-K, etc.)
+set -o emacs
+
 # Less pipe for better paging
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
