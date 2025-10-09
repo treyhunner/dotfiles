@@ -12,6 +12,8 @@ setopt PUSHD_MINUS      # Swap meaning of cd +1 and cd -1
 zstyle ':completion:*' completer _expand _complete _ignored _correct
 autoload -U compinit
 compinit
+autoload -U bashcompinit
+bashcompinit
 
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
