@@ -99,6 +99,11 @@ alias docker-compose='docker compose'
 alias '$'=''           # Allow copy-pasting commands with '$ ' prefix
 alias lukasz="echo -n Łukasz | copy"
 
+alias bat=batcat
+alias cat=batcat
+export BAT_THEME="Solarized (light)"
+export MANPAGER="sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, \"\", \$0); gsub(/.\x08/, \"\", \$0); print }'\'' | batcat -p -lman'"
+
 # ========================================
 # Project Helper Functions (workon & venv)
 # ========================================

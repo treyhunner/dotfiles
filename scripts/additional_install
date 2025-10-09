@@ -1,7 +1,7 @@
 base_dir=$(dirname $(dirname $(realpath $0)))
 
 # Install core packages
-sudo apt -y install xclip git tmux quassel-client shutter gimp curl python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk compizconfig-settings-manager ubuntu-restricted-extras chrome-gnome-shell gnome-tweaks obs-studio firefox tree nodejs npm flatpak gnome-software-plugin-flatpak p7zip-full direnv hub
+sudo apt -y install xclip git tmux quassel-client shutter gimp curl python3-pip silversearcher-ag nautilus-dropbox zsh htop xsel texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended latexmk compizconfig-settings-manager ubuntu-restricted-extras chrome-gnome-shell gnome-tweaks obs-studio firefox tree nodejs npm flatpak gnome-software-plugin-flatpak p7zip-full direnv hub bat
 
 # Add NodeSource
 sudo apt-get update
@@ -96,6 +96,9 @@ sudo snap install slack --classic
 
 # Spotify
 sudo snap install spotify
+
+# Fancy diffs
+sudo snap install diff-so-fancy
 
 # Add FlatHub to flatpak repos
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
