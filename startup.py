@@ -1,63 +1,25 @@
+"""
+Trey's Python startup file
+
+This file adds keyboard shortcuts to the 3.13+ pyrepl.
+It also customizes REPL syntax highlighting in 3.14+.
+
+To use this file:
+
+Put this in ~/.zshenv or ~/.zshrc:
+export PYTHONSTARTUP=$HOME/.startup.py
+
+Run this:
+mkdir -p $HOME/.pyhacks
+python -m pip install pyrepl-hacks --target=$HOME/.pyhacks
+"""
+
+
 def _main():
     try:
-        import pyrepl_hacks as repl
+        _pyrepl_hacks()
     except ImportError:
-        _complex_main()
-    else:
-        repl.bind("Alt+M", "move-to-indentation")
-        repl.bind("Shift+Tab", "dedent")
-        repl.bind("Alt+Down", "move-line-down")
-        repl.bind("Alt+Up", "move-line-up")
-        repl.bind("Shift+Home", "home")
-        repl.bind("Shift+End", "end")
-
-        insertions = [
-            ("Ctrl+N", "[2, 1, 3, 4, 7, 11, 18, 29]"),
-            ("Ctrl+F", '["apples", "oranges", "bananas", "strawberries", "pears"]'),
-            ("Ctrl+W", 'with open('),
-            ("Ctrl+S", 'self.'),
-            ("Ctrl+P", 'print('),
-            ("Ctrl+T", 'class '),
-            ("Ctrl+M", 'import '),
-        ]
-        for binding, text in insertions:
-            repl.bind_to_insert(binding, text)
-
-
-        @repl.bind(r"Ctrl+X Ctrl+R", with_event=True)
-        def subprocess_run(reader, event_name, event):
-            reader.insert("import subprocess\n")
-            code = 'subprocess.run("", shell=True)'
-            reader.insert(code)
-            for _ in range(len(code) - code.index('""') - 1):
-                repl.commands.left(reader, event_name, event)
-
-        # -i hack
-        import sys
-        _special_chars = {r"\C": "Ctrl"}
-        if sys.orig_argv[1:] == ["-i"]:  # Hack to overload -i to print keys
-            print()
-            for key, text in insertions:
-                special, _, char = key.partition("-")
-                special = _special_chars[special]
-                print(f"{special}-{char.upper()}:", text)
-            print()
-            sys.exit(1)
-
-        try:
-            repl.update_theme(
-                keyword="green",
-                builtin="blue",
-                comment="intense blue",
-                string="cyan",
-                number="cyan",
-                definition="blue",
-                soft_keyword="bold green",
-                op="intense green",
-                reset="reset, intense green",
-            )
-        except ImportError:
-            pass  # We're on Python 3.13 or below
+        pass  # Python 3.12 or below or pyrepl_hacks isn't in ~/.pyhacks
 
     # Fun stuff, in case rich is installed
     try:
@@ -68,190 +30,54 @@ def _main():
         rich.pretty.install()
 
 
-def _complex_main():
+def _pyrepl_hacks():
+    """Customizations powered by pyrepl-hacks."""
+    from pathlib import Path
     import sys
-    import textwrap
-    try:
-        from _pyrepl.simple_interact import _get_reader
-        from _pyrepl.commands import home, end, Command, EditCommand, MotionCommand
-    except ImportError:
-        # Helper for Python 3.12 and below
-        def _p():
-            """Read a block of code from user input and run it."""
-            import platform
-            on_windows = platform.system() == "Windows"
-            eof = "Ctrl-Z Enter" if on_windows else "Ctrl-D"
-            print(f"Paste your code block and then press {eof}\n")
-            exec(textwrap.dedent(sys.stdin.read()), globals())
-    else:
-        # Hack the new Python 3.13 REPL!
-        reader = _get_reader()
-        cmds = {
-            r"\C-n": "[2, 1, 3, 4, 7, 11, 18, 29]",
-            r"\C-f": '["apples", "oranges", "bananas", "strawberries", "pears"]',
-            r"\C-w": "with open(",
-            r"\C-s": "self.",
-            r"\C-p": "print(",
-            r"\C-t": "class ",
-            r"\C-m": "import ",
-        }
-        for _n, (key, text) in enumerate(cmds.items(), start=1):
-            name = f"CustomCommand{_n}"
-            exec(textwrap.dedent(f"""
-                class _cmds:
-                    class {name}(Command):
-                        def do(self):
-                            self.reader.insert({text!r})
-                    reader.commands[{name!r}] = {name}
-                    reader.bind({key!r}, {name!r})
-            """), locals())
+    sys.path.append(str(Path.home() / ".pyhacks"))
+    import pyrepl_hacks as repl  # Raises ImportError on 3.12 & below
 
-        class move_to_indentation(MotionCommand):
-            """Move to the start of indentation for the current line."""
-            def do(self):
-                import re
-                x, y = self.reader.pos2xy()
-                lines = self.reader.get_unicode().splitlines(keepends=True)
-                line = lines[y]
-                if match := re.search(r"^\s+", line):
-                    index = match.end()
-                else:
-                    index = 0
-                self.reader.pos = self.reader.bol() + index
+    repl.bind("Alt+M", "move-to-indentation")
+    repl.bind("Shift+Tab", "dedent")
+    repl.bind("Alt+Down", "move-line-down")
+    repl.bind("Alt+Up", "move-line-up")
+    repl.bind("Shift+Home", "home")
+    repl.bind("Shift+End", "end")
 
-        # Bind Alt+M to move to the beginning of the indentation
-        reader.commands["move-to-indentation"] = move_to_indentation
-        reader.bind(r"\M-m", "move-to-indentation")
+    repl.bind_to_insert("Ctrl+N", "[2, 1, 3, 4, 7, 11, 18, 29]")
+    repl.bind_to_insert("Ctrl+F", '["apples", "oranges", "bananas", "strawberries", "pears"]')
+    repl.bind_to_insert("Ctrl+W", 'with open(')
+    repl.bind_to_insert("Ctrl+S", 'self.')
+    repl.bind_to_insert("Ctrl+P", 'print(')
+    repl.bind_to_insert("Ctrl+T", 'class ')
+    repl.bind_to_insert("Ctrl+M", 'import ')
 
-        class dedent_block(EditCommand):
-            """Dedent the current code block."""
-            def do(self):
-                r = self.reader
-                x, y = self.reader.pos2xy()
-                original_text = r.get_unicode()
-                dedented_text = textwrap.dedent(original_text)
-
-                # Dedent buffer and invalidate cache
-                r.buffer[:] = list(dedented_text)
-                r.last_refresh_cache.invalidated = True
-                r.dirty = True
-
-                # Reposition cursor correctly
-                original_lines = original_text.splitlines()
-                dedented_lines = dedented_text.splitlines()
-                removed_characters = sum(
-                    len(old) - len(new)
-                    for old, new in zip(original_lines[:y+1], dedented_lines)
-                )
-                r.pos -= removed_characters
-
-        # Bind Shift+Tab to dedent
-        reader.commands["dedent-block"] = dedent_block
-        reader.bind(r"\e[Z", "dedent-block")
-
-        reader.bind(r"\<home>", "home")
-        reader.bind(r"\<end>", "end")
-
-        class move_line_down(EditCommand):
-            """Move the current line down."""
-            def do(self):
-                r = self.reader
-                x, y = r.pos2xy()
-                lines = r.get_unicode().splitlines(keepends=True)
-
-                # Can't move down if we're on the last line
-                if y >= len(lines) - 1:
-                    return
-
-                # Swap current line with next line
-                lines[y], lines[y+1] = lines[y+1], lines[y]
-
-                if not lines[y].endswith("\n"):
-                    lines[y] += "\n"
-
-                # Update buffer with swapped lines
-                r.buffer[:] = list("".join(lines))
-                r.last_refresh_cache.invalidated = True
-                r.dirty = True
-
-                # Move cursor to same column in the moved line (one line up)
-                r.pos += len(lines[y])
-
-        # Bind Alt+Down to move line down
-        reader.commands["move-line-down"] = move_line_down
-        reader.bind(r"\e[1;3B", "move-line-down")  # Alt+Down
-
-        class move_line_up(EditCommand):
-            """Move the current line up."""
-            def do(self):
-                r = self.reader
-                x, y = r.pos2xy()
-                lines = r.get_unicode().splitlines(keepends=True)
-
-                # Can't move up if we're on the first line
-                if y <= 0:
-                    return
-
-                # Swap current line with previous line
-                lines[y-1], lines[y] = lines[y], lines[y-1]
-
-                # Update buffer with swapped lines
-                r.buffer[:] = list("".join(lines))
-                r.last_refresh_cache.invalidated = True
-                r.dirty = True
-
-                # Move cursor to same column in the moved line (one line up)
-                r.pos -= len(lines[y])
-
-        # Bind Alt+Up to move line up
-        reader.commands["move-line-up"] = move_line_up
-        reader.bind(r"\e[1;3A", "move-line-up")  # Alt+Up
-
-        # bind C+x C+r to subprocess.run
-        class Run(Command):
-            def do(self):
-                from _pyrepl.commands import backward_kill_word, left
-                backward_kill_word(self.reader, self.event_name, self.event).do()
-                self.reader.insert("import subprocess\n")
-                code = 'subprocess.run("", shell=True)'
-                self.reader.insert(code)
-                for _ in range(len(code) - code.index('""') - 1):
-                    left(self.reader, self.event_name, self.event).do()
-        reader.commands["subprocess_run"] = Run
-        reader.bind(r"\C-x\C-r", "subprocess_run")
-
-        # -i hack
-        _special_chars = {r"\C": "Ctrl"}
-        if sys.orig_argv[1:] == ["-i"]:  # Hack to overload -i to print keys
-            print()
-            for key, text in cmds.items():
-                special, _, char = key.partition("-")
-                special = _special_chars[special]
-                print(f"{special}-{char.upper()}:", text)
-            print()
-            sys.exit(1)
+    @repl.bind(r"Ctrl+X Ctrl+R", with_event=True)
+    def subprocess_run(reader, event_name, event):
+        reader.insert("import subprocess\n")
+        code = 'subprocess.run("", shell=True)'
+        reader.insert(code)
+        for _ in range(len(code) - code.index('""') - 1):
+            repl.commands.left(reader, event_name, event)
 
     try:
-        from _colorize import set_theme, default_theme, Syntax, ANSIColors
-    except ImportError:
-        pass  # Python 3.13 and below
-    else:
-        # Define Solarized Light colors
-        solarized_light_theme = default_theme.copy_with(
-            syntax=Syntax(
-                keyword=ANSIColors.GREEN,
-                builtin=ANSIColors.BLUE,
-                comment=ANSIColors.INTENSE_BLUE,
-                string=ANSIColors.CYAN,
-                number=ANSIColors.CYAN,
-                definition=ANSIColors.BLUE,
-                soft_keyword=ANSIColors.BOLD_GREEN,
-                op=ANSIColors.INTENSE_GREEN,
-                reset=ANSIColors.RESET + ANSIColors.INTENSE_GREEN,
-            ),
+        repl.update_theme(
+            keyword="green",
+            builtin="blue",
+            comment="intense blue",
+            string="cyan",
+            number="cyan",
+            definition="blue",
+            soft_keyword="bold green",
+            op="intense green",
+            reset="reset, intense green",
         )
-        set_theme(solarized_light_theme)
+    except ImportError:
+        pass  # We're on Python 3.13 or below
 
+
+# Kick it all off
 _main()
-del _main
-del _complex_main
+
+# Delete the global variables we defined
+del _main, _pyrepl_hacks
