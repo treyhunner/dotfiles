@@ -19,7 +19,7 @@ _sys.path.append(str(_pathlib.Path.home() / ".pyhacks"))
 try:
     import pyrepl_hacks as _repl
 except ImportError:
-    pass  # We're on Python 3.12 or below
+    _repl = None  # We're on Python 3.12 or below
 else:
     _repl.bind("Home", "home")
     _repl.bind("End", "end")
@@ -49,4 +49,4 @@ else:
     except ImportError:
         pass  # We're on Python 3.13 or below
 
-    del _repl, _pathlib, _sys  # Avoid global REPL namespace pollution
+del _repl, _pathlib, _sys  # Avoid global REPL namespace pollution
