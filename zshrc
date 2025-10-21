@@ -221,3 +221,60 @@ compdef _just just
 # ========================================
 
 eval "$(starship init zsh)"
+
+# ========================================
+# # tmpvenv command for throwaway venvs
+# ========================================
+
+# Usage: tmpvenv [-p 3.12] [requests]
+tmpvenv() {
+  emulate -L zsh
+  set -u
+
+  # Parse: optional -p/--python VERSION ; then optional packages
+  local py=""
+  local -a pkgs=()
+  while (( $# )); do
+    case "$1" in
+      -p|--python) py=$2; shift 2 ;;
+      --) shift; break ;;  # stop option parsing
+      *) pkgs+=("$1"); shift ;;
+    esac
+  done
+
+  command -v uv >/dev/null || { print -ru2 "uv not found"; return 127; }
+
+  # Create a unique temp dir
+  local dir
+  dir=$(mktemp -d -t tmpvenv.XXXXXXXX) || { print -ru2 "mktemp failed"; return 1; }
+
+  # Create the venv with uv
+  local -a venv_args=(--seed)
+  [[ -n $py ]] && venv_args+=(--python "$py")
+  venv_args+=("$dir")
+  uv venv --quiet "${venv_args[@]}" || { rmdir "$dir"; return 1; }
+
+  # Pre-install packages *into this venv specifically*
+  if (( ${#pkgs[@]} )); then
+    uv pip install --python "$dir/bin/python" "${pkgs[@]}"
+  fi
+
+  # Minimal ZDOTDIR so the child shell auto-activates & aliases deactivate->exit
+  local zd="$dir/_zdotdir"
+  mkdir -p "$zd" || { rm -rf "$dir"; return 1; }
+  cat > "$zd/.zshrc" <<'EOS'
+[[ -f "$HOME/.zshrc" ]] && source "$HOME/.zshrc"  # Keep user's config
+source "$TMPVENV_DIR/bin/activate"  # Activate the temp venv
+alias deactivate='exit'  # 'deactivate' ends the shell so cleanup runs
+print -P "Activated temp venv at:%f %F{cyan}$TMPVENV_DIR%f"
+print -P "Type %F{green}deactivate%f or %F{green}exit%f to deactivate and delete it."
+EOS
+
+  # Launch child interactive zsh that reads our tiny .zshrc
+  TMPVENV_DIR="$dir" ZDOTDIR="$zd" zsh -i
+  local ec=$?
+
+  # Cleanup after child shell closes
+  [[ -d $dir ]] && rm -rf -- "$dir"
+  return $ec
+}
