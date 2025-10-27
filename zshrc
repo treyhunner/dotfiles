@@ -8,12 +8,13 @@
 setopt AUTO_PUSHD       # Push directories onto stack automatically
 setopt PUSHD_MINUS      # Swap meaning of cd +1 and cd -1
 
-# Setup autocompletion
-zstyle ':completion:*' completer _expand _complete _ignored _correct
-autoload -U compinit
-compinit
-autoload -U bashcompinit
-bashcompinit
+# completions
+: ${XDG_CACHE_HOME:=$HOME/.cache}
+fpath=("$XDG_CACHE_HOME/zsh/site-functions" $fpath)   # where _uv lives (see note below)
+autoload -Uz compinit
+ZSH_COMPDUMP="$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
+compinit -C -d "$ZSH_COMPDUMP"
+
 
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
@@ -215,6 +216,11 @@ _just() {
     fi
 }
 compdef _just just
+
+# Setup autocompletion
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
+# NOTE: ZSH_COMPDUMP will be reassigned below to a separate compdump folder.
 
 # ========================================
 # Prompt
