@@ -27,6 +27,10 @@ else:
     _repl.bind("Shift+Tab", "dedent")
     _repl.bind("Alt+Down", "move-line-down")
     _repl.bind("Alt+Up", "move-line-up")
+    _repl.bind("Ctrl+Up", "previous-history")
+    _repl.bind("Ctrl+Down", "next-history")
+    _repl.bind("Alt+{", "previous-paragraph")
+    _repl.bind("Alt+}", "next-paragraph")
     _repl.bind_to_insert("Ctrl+N", "[2, 1, 3, 4, 7, 11, 18, 29]")
     _repl.bind_to_insert(
         "Ctrl+F",
