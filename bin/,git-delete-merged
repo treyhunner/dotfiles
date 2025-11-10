@@ -1,0 +1,56 @@
+#!/usr/bin/env uvrs
+# /// script
+# requires-python = ">=3.12"
+# ///
+"""
+Delete local branches that have already been merged into main/master.
+
+To alias "git delete-merged" add this to ~/.gitconfig:
+[alias]
+    delete-merged = !,git-delete-merged
+"""
+
+import subprocess
+import sys
+
+
+error = None
+for candidate in ("main", "master", "trunk"):
+    proc = subprocess.run(
+        ["git", "branch", "--merged", candidate, "--format=%(refname:short)"],
+        capture_output=True,
+        text=True,
+    )
+    if proc.returncode == 0:
+        default_branch = candidate
+        output = proc.stdout
+        break
+    error = proc.stderr.strip() or error
+else:
+    if error:
+        sys.exit(error)
+    else:
+        sys.exit("Unable to determine default branch.")
+
+branches = [
+    line
+    for raw_line in output.splitlines()
+    if (line := raw_line.strip()) and line != default_branch
+]
+
+if not branches:
+    print(f"No branches merged into {default_branch} are eligible for deletion.")
+    sys.exit()
+
+print(f"Branches merged into {default_branch}:")
+for branch in branches:
+    print(f"  {branch}")
+
+if input("Delete these branches (y/n)? ").strip().lower() not in {"y", "yes"}:
+    sys.exit("Aborting.")
+
+return_codes = [
+    subprocess.run(["git", "branch", "-d", branch]).returncode
+    for branch in branches
+]
+sys.exit(sum(return_codes))

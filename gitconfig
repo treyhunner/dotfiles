@@ -6,6 +6,7 @@
 	excludesfile = ~/.gitignore
 [alias]
 	url = !hub browse -u -- commit/$(git rev-parse HEAD)
+	delete-merged = !,git-delete-merged
 	context = blame
 	permission-reset = !git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
 	unpushed = log --branches --not --remotes --no-walk --decorate --oneline
