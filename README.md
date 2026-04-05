@@ -26,6 +26,7 @@ I use a `,` prefix for most of my custom scripts so I can type `,` and hit `<TAB
 - Auto-activation via direnv when entering project directories
 - Version management with pyenv for now, though I'm starting to migrate to uv for this
 - Enhanced REPL: `startup.py` customizes the Python REPL with [keyboard shortcuts](https://treyhunner.com/2024/10/adding-keyboard-shortcuts-to-the-python-repl/) and [a custom color scheme](https://treyhunner.com/2025/09/customizing-your-python-repl-color-scheme/)
+- Enhanced PDB: `pdbrc` adds some helpful PDB aliases
 
 Read more: [Switching from virtualenvwrapper to direnv, Starship, and uv](https://treyhunner.com/2024/10/switching-from-virtualenvwrapper-to-direnv-starship-and-uv/)
 

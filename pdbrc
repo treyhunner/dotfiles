@@ -1,0 +1,16 @@
+# Custom PDB aliases
+
+# dir obj: print non-dunder attributes and methods
+alias dir print(*(f"%1.{n} = {v!r}" for n, v in __import__('inspect').getmembers(%1) if not n.startswith("__")), sep="\n")
+
+# attrs obj: print non-dunder data attributes
+alias attrs import inspect as __i ;; print(*(f"%1.{n} = {v!r}" for n, v in __i.getmembers(%1, lambda v: not __i.isroutine(v)) if not n.startswith("__")), sep="\n") ;; del __i
+
+# vars obj: print instance variables (object must have __dict__)
+alias vars print(*(f"%1.{k} = {v!r}" for k, v in vars(%1).items()), sep="\n")
+
+# src obj: print source file, line number, and code where a class/function was defined
+alias src import inspect as __i;; print(f"{__i.getsourcefile(%1)} on line {__i.getsourcelines(%1)[1]}:\n{''.join(__i.getsource(%1))}") ;; del __i
+
+# loc: print local variables from current frame
+alias loc print(*(f"{name} = {value!r}" for name, value in vars().items() if not name.startswith("__")), sep="\n")
